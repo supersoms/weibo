@@ -19,7 +19,7 @@ class WBBaseViewController: UIViewController{
     var isPullup = false
     
     //1: 自定义导航条
-    lazy var navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 15, width: UIScreen.cz_screenWidth(), height: 64))
+    lazy var navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 20, width: UIScreen.cz_screenWidth(), height: 64))
     
     //4: 自定义的导航条目
     lazy var navItem = UINavigationItem()
@@ -103,10 +103,16 @@ extension WBBaseViewController{
         view.addSubview(navigationBar)
         //5: 将item设置给bar
         navigationBar.items=[navItem]
-        //设置 navBar 的渲染颜色
-        navigationBar.barTintColor = UIColor.cz_color(withHex: 0xF6F6F6)
-        //设置 navBar 的字体颜色为深灰色
+        //设置整个 navBar 条子的背景颜色
+        if userLogon {
+             navigationBar.barTintColor = UIColor.cz_color(withHex: 0xffffff) //用户己登陆，设置整个导航条背景颜色为白色
+        } else{
+             navigationBar.barTintColor = UIColor.cz_color(withHex: 0xEDEDED) //用户己登陆，设置整个导航条背景颜色为灰色
+        }
+        //设置 navBar 中间标题字体的颜色为深灰色
         navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.darkGray]
+        //设置左上角与右上角系统按钮的文字颜色
+        navigationBar.tintColor = UIColor.orange
     }
 }
 
