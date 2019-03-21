@@ -63,6 +63,12 @@ extension WBMainViewController{
         //将这些配置信息写入到沙盒中，就是写入文件中
         (array as NSArray).write(toFile: "/Users/qilin/Desktop/weibo.plist", atomically: true)
         
+        //将数组转为Json序列化,options:表示输出有格式的json
+        let data = try! JSONSerialization.data(withJSONObject: array, options: [.prettyPrinted])
+        (data as NSData).write(toFile: "/Users/qilin/Desktop/weibo.json", atomically: true)
+        
+        
+        
         var arrayM = [UIViewController]()
         for dict in array{
             arrayM.append(controller(dict: dict))

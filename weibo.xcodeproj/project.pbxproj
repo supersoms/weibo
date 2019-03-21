@@ -32,6 +32,7 @@
 		E99339F0223F99D800333125 /* NSAttributedString+CZAdditon.m in Sources */ = {isa = PBXBuildFile; fileRef = E99339E3223F99D800333125 /* NSAttributedString+CZAdditon.m */; };
 		E99339F1223F99D800333125 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = E99339E4223F99D800333125 /* NSArray+Log.m */; };
 		E99339F4223FD0DC00333125 /* BundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99339F3223FD0DB00333125 /* BundleExtension.swift */; };
+		E9A3E1FC2243767D004D61CC /* main.json in Resources */ = {isa = PBXBuildFile; fileRef = E9A3E1FB2243767D004D61CC /* main.json */; };
 		E9BAD8202240DCB500517E8B /* WBTestDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BAD81F2240DCB500517E8B /* WBTestDemoViewController.swift */; };
 		E9BAD8222240F06C00517E8B /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BAD8212240F06C00517E8B /* UIBarButtonItemExtensions.swift */; };
 /* End PBXBuildFile section */
@@ -99,6 +100,7 @@
 		E99339E5223F99D800333125 /* NSString+CZPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CZPath.h"; sourceTree = "<group>"; };
 		E99339F2223F9A8600333125 /* Weibo-Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Weibo-Bridge.h"; sourceTree = "<group>"; };
 		E99339F3223FD0DB00333125 /* BundleExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
+		E9A3E1FB2243767D004D61CC /* main.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = main.json; sourceTree = "<group>"; };
 		E9BAD81F2240DCB500517E8B /* WBTestDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBTestDemoViewController.swift; sourceTree = "<group>"; };
 		E9BAD8212240F06C00517E8B /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -140,6 +142,7 @@
 		E9776AC9224203EE0091EFB5 /* MainControll */ = {
 			isa = PBXGroup;
 			children = (
+				E9A3E1FB2243767D004D61CC /* main.json */,
 				E99339BE223F7D1A00333125 /* WBMainViewController.swift */,
 				E99339C0223F7D5B00333125 /* WBNavigationController.swift */,
 			);
@@ -440,6 +443,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9A3E1FC2243767D004D61CC /* main.json in Resources */,
 				E993398E223F759100333125 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
