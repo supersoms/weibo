@@ -15,7 +15,8 @@ class WBVisitorView: UIView {
             //设置信息
             tipLabel.text = message
             //设置图像,首页不需要设置
-            if imageName == ""{
+            if imageName == "" {
+                startAnimation()
                 return
             }
             iconView.image = UIImage(named: imageName)
@@ -32,6 +33,22 @@ class WBVisitorView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //旋转图标动画,只有首页需要旋转动画
+    private func startAnimation(){
+        let anim = CABasicAnimation(keyPath: "transform.rotation") //transform.rotation 表示旋转
+        anim.toValue = 2 * M_PI
+        anim.repeatCount = MAXFLOAT //不停的旋转
+        anim.duration = 15 //选择一圈持续的时间
+        
+        //当动画完成之后不删除，不然再从别的界面切换过来时，动画会己停止
+        //> - 1: 当iconView被销毁，动画也会跟随一起销毁
+        //> - 2: 经常用在循环播放动画上
+        anim.isRemovedOnCompletion = false
+        
+        //动画设置好了之后，将动画添加到图层
+        iconView.layer.add(anim, forKey: nil)
     }
     
     ///MARK - 私有控件
