@@ -3,6 +3,28 @@ import UIKit
 ///访客视图
 class WBVisitorView: UIView {
 
+    //访客视图的信息字典属性
+    // - parameter dict:[imageName / message]
+    // 提示：如果是首页 imageName ==""
+    var visitorInfoDict: [String:String]? {
+        didSet {
+            guard let imageName = visitorInfoDict?["imageName"], let message = visitorInfoDict?["message"] else{
+                print("imageName message is nil")
+                return
+            }
+            //设置信息
+            tipLabel.text = message
+            //设置图像,首页不需要设置
+            if imageName == ""{
+                return
+            }
+            iconView.image = UIImage(named: imageName)
+            //其它控制器的访客视图不需要显示小房子和遮罩，需要隐藏
+            hoursIconView.isHidden = true
+            maskIconView.isHidden = true
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -35,7 +57,7 @@ class WBVisitorView: UIView {
 /// MARK - 设置界面
 extension WBVisitorView{
     func setupUI(){
-        backgroundColor = UIColor.white
+        backgroundColor = UIColor.cz_color(withHex: 0xEDEDED)
         
         //1. 添加控件
         addSubview(iconView)
@@ -44,6 +66,9 @@ extension WBVisitorView{
         addSubview(tipLabel)
         addSubview(registerBtn)
         addSubview(loginBtn)
+        
+        //让tipLabel里面的文字居中显示
+        tipLabel.textAlignment = .center
         
         //2. 取消autoresizing
         for v in subviews {

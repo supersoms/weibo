@@ -6,6 +6,9 @@ class WBBaseViewController: UIViewController{
     //根据用户登陆的状态来是否显示访客视图,false表示用户未登陆
     var userLogon = false
     
+    //访客视图信息
+    var visitorInfo: [String: String]?
+    
     //表格视图，如果用户没有登陆，就不创建
     var tableView: UITableView?
     
@@ -82,6 +85,8 @@ extension WBBaseViewController{
     private func setupVisiorView(){
         let visiorView = WBVisitorView(frame: view.bounds)
         view.insertSubview(visiorView, belowSubview: navigationBar)
+        //给访客视图界面设置信息
+        visiorView.visitorInfoDict = visitorInfo
     }
     
     //设置导航条

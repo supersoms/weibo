@@ -51,11 +51,18 @@ extension WBMainViewController{
     
     // 设置所有子控制器
     private func setupChildControllers(){
-        let array = [["clsName": "WBHomeViewController", "title": "首页", "imageName": "home"],
-                     ["clsName": "WBMessageViewController", "title": "消息", "imageName": "message_center"],
-                     ["clsName": "UIViewController"],
-                     ["clsName": "WBDiscoverViewController", "title": "发现", "imageName": "discover"],
-                     ["clsName": "WBProfileViewController", "title": "我", "imageName": "profile"]]
+        
+        //以下这些图标与文字信息，现在很多APP是通过请求网络Json数据来动态处理的
+        let array: [[String: Any]] = [
+            ["clsName": "WBHomeViewController", "title": "首页", "imageName": "home", "visitorInfo":["imageName":"","message":"关注一些人，回这里看看有什么惊喜"]],
+            ["clsName": "WBMessageViewController", "title": "消息", "imageName": "message_center","visitorInfo":["imageName":"visitordiscover_image_message","message":"登录后，别人评论你的微博，发给你的消息，都会显示在这里"]],
+            ["clsName": "UIViewController"],
+            ["clsName": "WBDiscoverViewController", "title": "发现", "imageName": "discover","visitorInfo":["imageName":"visitordiscover_image_message","message":"登录后，最新，最热微博尽在掌握"]],
+            ["clsName": "WBProfileViewController", "title": "我", "imageName": "profile","visitorInfo":["imageName":"visitordiscover_image_profile","message":"登录后，你的微博，相册，个人资料会显示在这里"]]
+            ]
+        //将这些配置信息写入到沙盒中，就是写入文件中
+        (array as NSArray).write(toFile: "/Users/qilin/Desktop/weibo.plist", atomically: true)
+        
         var arrayM = [UIViewController]()
         for dict in array{
             arrayM.append(controller(dict: dict))
@@ -66,16 +73,20 @@ extension WBMainViewController{
     // 使用字典创建一个子控制器
     // param dict: map
     // return : 子控制器
-    private func controller(dict:[String:String]) -> UIViewController {
+    private func controller(dict:[String: Any]) -> UIViewController {
         //1: 获取字典内容
-        guard let clsName = dict["clsName"],let title = dict["title"],let imageName = dict["imageName"],
-            let cls = NSClassFromString(Bundle.main.namespac+"."+clsName) as? UIViewController.Type else {
+        guard let clsName = dict["clsName"] as? String, let title = dict["title"] as? String, let imageName = dict["imageName"] as? String,
+            let cls = NSClassFromString(Bundle.main.namespac+"."+clsName) as? WBBaseViewController.Type,
+            let visitorDict = dict["visitorInfo"] as? [String:String] else {
             print("clsName, title, imageName is nil ")
             return UIViewController()
         }
         //2: 创建视图控制器，到这里，cls和title,imageName都不为空了,
         let vc = cls.init()
         vc.title = title
+        
+        //设置控制器的访客信息字典, 给访客视图界面对象赋值
+        vc.visitorInfo = visitorDict
         
         //3: 动态设置Tabbar的默认图标与按下的效果图标
         vc.tabBarItem.image = UIImage(named: "tabbar_" + imageName) //Tabbar默认图标
