@@ -52,25 +52,35 @@ extension WBMainViewController{
     // 设置所有子控制器
     private func setupChildControllers(){
         
+        //从bundle加载配置json数据,实际开发中这个json数据是从网络上通过接口获取
+        //> - 因array最初类型是NSArray，所以需要转为 [[String: Any]]
+        //> 1: 获取main.json文件的路径
+        //> 2: 加载NSData()
+        //> 3: 将json数据反序列化转换成数组
+        guard let path = Bundle.main.path(forResource: "main.json", ofType: nil),
+            let data = NSData(contentsOfFile: path),
+            let array = try? JSONSerialization.jsonObject(with: data as Data, options: []) as? [[String: Any]]  else {
+                print("path is nil")
+                return
+        }
+        
         //以下这些图标与文字信息，现在很多APP是通过请求网络Json数据来动态处理的
-        let array: [[String: Any]] = [
-            ["clsName": "WBHomeViewController", "title": "首页", "imageName": "home", "visitorInfo":["imageName":"","message":"关注一些人，回这里看看有什么惊喜"]],
-            ["clsName": "WBMessageViewController", "title": "消息", "imageName": "message_center","visitorInfo":["imageName":"visitordiscover_image_message","message":"登录后，别人评论你的微博，发给你的消息，都会显示在这里"]],
-            ["clsName": "UIViewController"],
-            ["clsName": "WBDiscoverViewController", "title": "发现", "imageName": "discover","visitorInfo":["imageName":"visitordiscover_image_message","message":"登录后，最新，最热微博尽在掌握"]],
-            ["clsName": "WBProfileViewController", "title": "我", "imageName": "profile","visitorInfo":["imageName":"visitordiscover_image_profile","message":"登录后，你的微博，相册，个人资料会显示在这里"]]
-            ]
-        //将这些配置信息写入到沙盒中，就是写入文件中
-        (array as NSArray).write(toFile: "/Users/qilin/Desktop/weibo.plist", atomically: true)
-        
-        //将数组转为Json序列化,options:表示输出有格式的json
-        let data = try! JSONSerialization.data(withJSONObject: array, options: [.prettyPrinted])
-        (data as NSData).write(toFile: "/Users/qilin/Desktop/weibo.json", atomically: true)
-        
-        
+//        let array: [[String: Any]] = [
+//            ["clsName": "WBHomeViewController", "title": "首页", "imageName": "home", "visitorInfo":["imageName":"","message":"关注一些人，回这里看看有什么惊喜"]],
+//            ["clsName": "WBMessageViewController", "title": "消息", "imageName": "message_center","visitorInfo":["imageName":"visitordiscover_image_message","message":"登录后，别人评论你的微博，发给你的消息，都会显示在这里"]],
+//            ["clsName": "UIViewController"],
+//            ["clsName": "WBDiscoverViewController", "title": "发现", "imageName": "discover","visitorInfo":["imageName":"visitordiscover_image_message","message":"登录后，最新，最热微博尽在掌握"]],
+//            ["clsName": "WBProfileViewController", "title": "我", "imageName": "profile","visitorInfo":["imageName":"visitordiscover_image_profile","message":"登录后，你的微博，相册，个人资料会显示在这里"]]
+//            ]
+//        //将这些配置信息写入到沙盒中，就是写入文件中
+//        (array as NSArray).write(toFile: "/Users/qilin/Desktop/weibo.plist", atomically: true)
+//
+//        //将数组转为Json序列化,options:表示输出有格式的json
+//        let data = try! JSONSerialization.data(withJSONObject: array, options: [.prettyPrinted])
+//        (data as NSData).write(toFile: "/Users/qilin/Desktop/weibo.json", atomically: true)
         
         var arrayM = [UIViewController]()
-        for dict in array{
+        for dict in array! {
             arrayM.append(controller(dict: dict))
         }
         viewControllers = arrayM //Tabbar才有这个属性
