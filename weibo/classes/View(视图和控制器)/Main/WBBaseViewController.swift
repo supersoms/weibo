@@ -87,6 +87,10 @@ extension WBBaseViewController{
         view.insertSubview(visiorView, belowSubview: navigationBar)
         //给访客视图界面设置信息
         visiorView.visitorInfoDict = visitorInfo
+        
+        //添加访客视图的注册和登陆按钮的监听方法
+        visiorView.registerBtn.addTarget(self, action: #selector(register), for: .touchUpInside)
+        visiorView.loginBtn.addTarget(self, action: #selector(login), for: .touchUpInside)
     }
     
     //设置导航条
@@ -105,7 +109,7 @@ extension WBBaseViewController{
 //注意
 //1: extension中不能有属性
 //2: extension中不能重写父类的方法
-extension WBBaseViewController: UITableViewDataSource,UITableViewDelegate{
+extension WBBaseViewController: UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0 //因为基类不负责数据实现，所以返回0
     }
@@ -138,5 +142,15 @@ extension WBBaseViewController: UITableViewDataSource,UITableViewDelegate{
         }
         
         print("secion:\(secion)")
+    }
+}
+
+//访客视图监听方法
+extension WBBaseViewController {
+    @objc private func login(){
+        print("用户登陆")
+    }
+    @objc private func register(){
+        print("用户注册")
     }
 }
