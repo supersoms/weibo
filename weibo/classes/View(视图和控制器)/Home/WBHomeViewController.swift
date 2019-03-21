@@ -44,9 +44,10 @@ class WBHomeViewController: WBBaseViewController {
 
 ///MARK - 重写父类setupUI()方法设置界面
 extension WBHomeViewController {
-    //重写父类的方法
-    @objc override func setupUI() {
-        super.setupUI()
+    
+    override func setupTableView() {
+        super.setupTableView()
+        
         //自定义按钮实现按下时文字高亮效果
         navItem.leftBarButtonItem = UIBarButtonItem(title: "好友", target: self, actionMethod: #selector(showFriends))
         

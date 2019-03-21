@@ -16,10 +16,10 @@ class WBTestDemoViewController: WBBaseViewController {
 
 extension WBTestDemoViewController{
     //设置右侧的控制器（就是设置右上角的下一个按钮）
-    override func setupUI() {
-        super.setupUI()
+    override func setupTableView() {
+        super.setupTableView()
         //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "下一个", style: .plain, target: self, action: #selector(showNext))
-    
+        
         //自定义按钮实现按下时文字高亮效果
         navItem.rightBarButtonItem = UIBarButtonItem(title: "下一个", target: self, actionMethod: #selector(showNext))
     }

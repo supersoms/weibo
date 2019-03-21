@@ -45,7 +45,7 @@ class WBBaseViewController: UIViewController{
 
 ///MARK - 设置界面
 extension WBBaseViewController{
-    @objc func setupUI(){
+    @objc private func setupUI(){
         //view.backgroundColor = UIColor.cz_random()
         
         view.backgroundColor = UIColor.white
@@ -57,8 +57,8 @@ extension WBBaseViewController{
         userLogon ? setupTableView() : setupVisiorView()
     }
     
-    //添加设置表格视图
-    private func setupTableView(){
+    //添加设置表格视图,只有用户登陆成功之后才会显示
+    @objc func setupTableView(){
         tableView = UITableView(frame: view.bounds, style: .plain)
         view.insertSubview(tableView!, belowSubview: navigationBar) //tableView位于navigationBar下面
         //设置数据源&代理 -> 目的：子类直拉实现数据源的方法
@@ -85,12 +85,16 @@ extension WBBaseViewController{
     private func setupVisiorView(){
         let visiorView = WBVisitorView(frame: view.bounds)
         view.insertSubview(visiorView, belowSubview: navigationBar)
-        //给访客视图界面设置信息
+        //1: 给访客视图界面设置信息
         visiorView.visitorInfoDict = visitorInfo
         
-        //添加访客视图的注册和登陆按钮的监听方法
+        //2: 添加访客视图的注册和登陆按钮的监听方法
         visiorView.registerBtn.addTarget(self, action: #selector(register), for: .touchUpInside)
         visiorView.loginBtn.addTarget(self, action: #selector(login), for: .touchUpInside)
+        
+        //3: 设置导航条按钮(注册与登陆)
+        navItem.leftBarButtonItem = UIBarButtonItem(title: "注册", style: .plain, target: self, action: #selector(register))
+        navItem.rightBarButtonItem = UIBarButtonItem(title: "登陆", style: .plain, target: self, action: #selector(login))
     }
     
     //设置导航条
