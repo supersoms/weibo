@@ -16,6 +16,9 @@ class WBVisitorView: UIView {
     //图像控件
     private lazy var iconView: UIImageView = UIImageView(image: UIImage(named: "visitordiscover_feed_image_smallicon"))
     
+    //遮罩图像效果
+    private lazy var maskIconView: UIImageView = UIImageView(image: UIImage(named: "visitordiscover_feed_mask_smallicon"))
+    
     //小房子
     private lazy var hoursIconView: UIImageView = UIImageView(image: UIImage(named: "visitordiscover_feed_image_house"))
     
@@ -36,6 +39,7 @@ extension WBVisitorView{
         
         //1. 添加控件
         addSubview(iconView)
+        addSubview(maskIconView)
         addSubview(hoursIconView)
         addSubview(tipLabel)
         addSubview(registerBtn)
@@ -93,5 +97,12 @@ extension WBVisitorView{
         //设置loginBtn的宽度为20
         addConstraint(NSLayoutConstraint(item: loginBtn, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute,
                                          multiplier: 1.0, constant: 60))
+        //> 设置遮罩,使用VFL,比addConstraint多一个s
+        //views: 定义VFL中的控件名称和实际名称映射关系
+        //metrics: 定义VFL中()指定的常数映射关系
+        let metrics = ["spacing": -35]
+        let viewDict = ["maskIconView": maskIconView,"registerBtn": registerBtn]
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[maskIconView]-0-|", options: [], metrics: nil, views: viewDict))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[maskIconView]-(spacing)-[registerBtn]", options: [], metrics: metrics, views: viewDict))
     }
 }
