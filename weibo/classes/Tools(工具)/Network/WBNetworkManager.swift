@@ -1,3 +1,4 @@
+//
 //  WBNetworkManager.swift
 //  weibo
 //
@@ -36,7 +37,7 @@ class WBNetworkManager: AFHTTPSessionManager {
             completion(nil, false)
         }
         
-        if method == .GET{
+        if method == .GET {
             get(url, parameters: params, progress: nil, success: successCall, failure: failureCall)
         } else {
             post(url, parameters: params, progress: nil, success: successCall, failure: failureCall)

@@ -10,6 +10,7 @@
 		951CF113A1A92E884B9A3989 /* Pods_weibo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D37E4624657D749F45FEE9A /* Pods_weibo.framework */; };
 		E9260B582242652B00654835 /* WBVisitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9260B572242652B00654835 /* WBVisitorView.swift */; };
 		E93CEB962244A7480037759B /* WBNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CEB952244A7480037759B /* WBNetworkManager.swift */; };
+		E93CEB982244B86A0037759B /* WBNetworkManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CEB972244B86A0037759B /* WBNetworkManager+Extension.swift */; };
 		E9933987223F759000333125 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9933986223F759000333125 /* AppDelegate.swift */; };
 		E993398E223F759100333125 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E993398D223F759100333125 /* Assets.xcassets */; };
 		E993399C223F759100333125 /* weiboTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993399B223F759100333125 /* weiboTests.swift */; };
@@ -62,6 +63,7 @@
 		DA065B45954B9744A8CC3E40 /* Pods-weibo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weibo.debug.xcconfig"; path = "Target Support Files/Pods-weibo/Pods-weibo.debug.xcconfig"; sourceTree = "<group>"; };
 		E9260B572242652B00654835 /* WBVisitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBVisitorView.swift; sourceTree = "<group>"; };
 		E93CEB952244A7480037759B /* WBNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBNetworkManager.swift; sourceTree = "<group>"; wrapsLines = 0; };
+		E93CEB972244B86A0037759B /* WBNetworkManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WBNetworkManager+Extension.swift"; sourceTree = "<group>"; };
 		E9933983223F759000333125 /* weibo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weibo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9933986223F759000333125 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E993398D223F759100333125 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				E93CEB952244A7480037759B /* WBNetworkManager.swift */,
+				E93CEB972244B86A0037759B /* WBNetworkManager+Extension.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 				E99339EE223F99D800333125 /* UIViewController+CZAddition.m in Sources */,
 				E99339CB223F7ECC00333125 /* WBProfileViewController.swift in Sources */,
 				E93CEB962244A7480037759B /* WBNetworkManager.swift in Sources */,
+				E93CEB982244B86A0037759B /* WBNetworkManager+Extension.swift in Sources */,
 				E99339F0223F99D800333125 /* NSAttributedString+CZAdditon.m in Sources */,
 				E99339C5223F7E1400333125 /* WBHomeViewController.swift in Sources */,
 				E9933987223F759000333125 /* AppDelegate.swift in Sources */,
