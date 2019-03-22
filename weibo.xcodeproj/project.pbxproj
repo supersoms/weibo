@@ -11,6 +11,8 @@
 		E9260B582242652B00654835 /* WBVisitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9260B572242652B00654835 /* WBVisitorView.swift */; };
 		E93CEB962244A7480037759B /* WBNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CEB952244A7480037759B /* WBNetworkManager.swift */; };
 		E93CEB982244B86A0037759B /* WBNetworkManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CEB972244B86A0037759B /* WBNetworkManager+Extension.swift */; };
+		E93CEB9A2244D65C0037759B /* WBStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CEB992244D65C0037759B /* WBStatus.swift */; };
+		E93CEB9C2244DA6C0037759B /* WBStatusListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CEB9B2244DA6C0037759B /* WBStatusListViewModel.swift */; };
 		E9933987223F759000333125 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9933986223F759000333125 /* AppDelegate.swift */; };
 		E993398E223F759100333125 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E993398D223F759100333125 /* Assets.xcassets */; };
 		E993399C223F759100333125 /* weiboTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993399B223F759100333125 /* weiboTests.swift */; };
@@ -64,6 +66,8 @@
 		E9260B572242652B00654835 /* WBVisitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBVisitorView.swift; sourceTree = "<group>"; };
 		E93CEB952244A7480037759B /* WBNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBNetworkManager.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		E93CEB972244B86A0037759B /* WBNetworkManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WBNetworkManager+Extension.swift"; sourceTree = "<group>"; };
+		E93CEB992244D65C0037759B /* WBStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WBStatus.swift; path = "weibo/classes/Tools(工具)/Network/WBStatus.swift"; sourceTree = SOURCE_ROOT; };
+		E93CEB9B2244DA6C0037759B /* WBStatusListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WBStatusListViewModel.swift; path = "weibo/classes/Tools(工具)/Network/WBStatusListViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		E9933983223F759000333125 /* weibo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weibo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9933986223F759000333125 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E993398D223F759100333125 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -305,6 +309,7 @@
 		E99339BB223F7C0B00333125 /* ViewModel(视图模型) */ = {
 			isa = PBXGroup;
 			children = (
+				E93CEB9B2244DA6C0037759B /* WBStatusListViewModel.swift */,
 			);
 			path = "ViewModel(视图模型)";
 			sourceTree = "<group>";
@@ -312,6 +317,7 @@
 		E99339BC223F7C0B00333125 /* Model(模型) */ = {
 			isa = PBXGroup;
 			children = (
+				E93CEB992244D65C0037759B /* WBStatus.swift */,
 			);
 			path = "Model(模型)";
 			sourceTree = "<group>";
@@ -571,6 +577,7 @@
 				E9260B582242652B00654835 /* WBVisitorView.swift in Sources */,
 				E99339E6223F99D800333125 /* UIColor+CZAddition.m in Sources */,
 				E99339C9223F7EA900333125 /* WBDiscoverViewController.swift in Sources */,
+				E93CEB9A2244D65C0037759B /* WBStatus.swift in Sources */,
 				E99339EA223F99D800333125 /* NSString+CZBase64.m in Sources */,
 				E99339C1223F7D5B00333125 /* WBNavigationController.swift in Sources */,
 				E9BAD8202240DCB500517E8B /* WBTestDemoViewController.swift in Sources */,
@@ -584,6 +591,7 @@
 				E99339F0223F99D800333125 /* NSAttributedString+CZAdditon.m in Sources */,
 				E99339C5223F7E1400333125 /* WBHomeViewController.swift in Sources */,
 				E9933987223F759000333125 /* AppDelegate.swift in Sources */,
+				E93CEB9C2244DA6C0037759B /* WBStatusListViewModel.swift in Sources */,
 				E9BAD8222240F06C00517E8B /* UIBarButtonItemExtensions.swift in Sources */,
 				E99339F1223F99D800333125 /* NSArray+Log.m in Sources */,
 				E99339BF223F7D1A00333125 /* WBMainViewController.swift in Sources */,

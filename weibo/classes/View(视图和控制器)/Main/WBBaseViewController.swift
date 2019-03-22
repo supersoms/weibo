@@ -4,7 +4,7 @@ import UIKit
 class WBBaseViewController: UIViewController{
 
     //根据用户登陆的状态来是否显示访客视图,false表示用户未登陆
-    var userLogon = false
+    var userLogon = true
     
     //访客视图信息
     var visitorInfo: [String: String]?

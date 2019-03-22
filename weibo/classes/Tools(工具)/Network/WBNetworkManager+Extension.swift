@@ -9,11 +9,13 @@ extension WBNetworkManager {
         print("===开始加载数据===")
         let url = "https://api.weibo.com/2/statuses/home_timeline.json"
         let params = [String: Any]()
+        
         WBNetworkManager.shared.tokenRequest(url: url, params: params) { (json, isSuccess) in
             //从json中获取 statuses 字典数组,如果 as? 失败,那result == nil
 //            let result = json?["statuses"] as? [[String: Any]]
             let jsonString = json as? [String: Any]
             let result = jsonString?["statuses"] as? [[String : Any]]
+            print("解析出来的result数据为: \(result)")
             completion(result , isSuccess)
         }
     }
