@@ -23,11 +23,12 @@ class WBNetworkManager: AFHTTPSessionManager {
     //访问令牌，所有微博网络请求，都基于此令牌(登陆除外)
     var accessToken: String? = "2.00qXUXgH0UvlTR6f94cf5e470z8gAh"
     
-    //专门拼接token的网络请求方法
+    //专门拼接token的网络请求方法，建立tokenRequest()方法，单独处理token字典
     func tokenRequest(method: WBHTTPMethod = .GET, url: String, params: [String: Any], completion: @escaping (_ json:Any?, _ isSucess:Bool)->()){
         //处理token字典
         //>0: 判断token是否为nil，如果为nil直接返回
         guard let token = accessToken else {
+             //FIXME: 发送通知,提示用户登录
             print("token is nil,需要登录")
             completion(nil,false)
             return
@@ -59,6 +60,13 @@ class WBNetworkManager: AFHTTPSessionManager {
         }
          //定义数据请求失败的闭包failureCall回调
         let failureCall = { (task: URLSessionDataTask?, error: Error) ->() in
+            
+            //针对token过期,服务器返回403的状态码处理
+            if (task?.response as? HTTPURLResponse)?.statusCode == 403 {
+                print("token 过期了")
+                //FIXME: 发送通知(本方法不知道被谁调用,谁接收到通知就谁处理)
+            }
+            
             print("网络请求错误: \(error)")
             completion(nil, false)
         }

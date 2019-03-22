@@ -13,7 +13,7 @@ extension WBNetworkManager {
             //从json中获取 statuses 字典数组,如果 as? 失败,那result == nil
 //            let result = json?["statuses"] as? [[String: Any]]
             let jsonString = json as? [String: Any]
-            let result = jsonString?["statuses"] as! [[String : Any]]
+            let result = jsonString?["statuses"] as? [[String : Any]]
             completion(result , isSuccess)
         }
     }
