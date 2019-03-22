@@ -18,6 +18,14 @@ class WBHomeViewController: WBBaseViewController {
     //加载首页数据，重写父类的方法
     override func loadData() {
         
+        let url = "https://api.weibo.com/2/statuses/home_timeline.json"
+        let param = ["access_token":"2.00qXUXgH0UvlTR6f94cf5e470z8gAh"]
+        WBNetworkManager.shared.request(url: url, params: param) { (json, isSuccess) in
+            if isSuccess {
+                print(json)
+            }
+        }
+        
         print("开始加载数据")
         //模拟延迟加载数据 -> dispatch_after
         //在当前时间的基础上加 2 秒，实现延迟的效果
