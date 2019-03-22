@@ -8,8 +8,8 @@ extension WBNetworkManager {
     func statusList(completion: @escaping (_ list:[[String: Any]]?, _ isSuccess: Bool)->()){
         print("===开始加载数据===")
         let url = "https://api.weibo.com/2/statuses/home_timeline.json"
-        let param = ["access_token":"2.00qXUXgH0UvlTR6f94cf5e470z8gAh"]
-        WBNetworkManager.shared.request(url: url, params: param) { (json, isSuccess) in
+        let params = [String: Any]()
+        WBNetworkManager.shared.tokenRequest(url: url, params: params) { (json, isSuccess) in
             //从json中获取 statuses 字典数组,如果 as? 失败,那result == nil
 //            let result = json?["statuses"] as? [[String: Any]]
             let jsonString = json as? [String: Any]

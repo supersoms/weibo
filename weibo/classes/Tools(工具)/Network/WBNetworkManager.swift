@@ -20,6 +20,32 @@ class WBNetworkManager: AFHTTPSessionManager {
     
     static let shared = WBNetworkManager() //这样一个单例就写完了
     
+    //访问令牌，所有微博网络请求，都基于此令牌(登陆除外)
+    var accessToken: String? = "2.00qXUXgH0UvlTR6f94cf5e470z8gAh"
+    
+    //专门拼接token的网络请求方法
+    func tokenRequest(method: WBHTTPMethod = .GET, url: String, params: [String: Any], completion: @escaping (_ json:Any?, _ isSucess:Bool)->()){
+        //处理token字典
+        //>0: 判断token是否为nil，如果为nil直接返回
+        guard let token = accessToken else {
+            print("token is nil,需要登录")
+            completion(nil,false)
+            return
+        }
+        
+        //>1: 判断params参数字典是否为nil,如果为nil，新建一个字典
+        var params = params
+        if params == nil {
+            params = [String: Any]()
+        }
+        
+        params["access_token"] = token
+      
+        //调用request()发起真正的网络请求
+        request(url: url, params: params, completion: completion)
+    }
+    
+    
     ///使用一个函数封装 AFN 的 GET / POST 请求
     /// - parameter method:     GET/POS
     /// - parameter url:        url
