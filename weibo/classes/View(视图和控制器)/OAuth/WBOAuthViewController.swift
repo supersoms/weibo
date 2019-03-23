@@ -19,7 +19,7 @@ class WBOAuthViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    //MARK - 监听返回方法
+    //MARK - 监听返回方法,关闭UI界面
     @objc private func back(){
         //因为是 present 进来的，所以用dismiss
         dismiss(animated: true, completion: nil)
