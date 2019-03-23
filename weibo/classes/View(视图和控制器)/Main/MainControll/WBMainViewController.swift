@@ -11,6 +11,8 @@ class WBMainViewController: UITabBarController {
         setupChildControllers()
         setupComposeButton()
         setupTimer()
+        //设置点击home按钮的代理
+        delegate = self
     }
     
     //定时器一定要销毁,所以在析构函数中实现,由系统调用
@@ -51,7 +53,7 @@ extension WBMainViewController{
         //2：设置按钮的位置,计算按钮的宽度
         let count = CGFloat(children.count) //获取子控件的个数
         //减1是为了去掉iPhone的容错点让w宽度小了1个点，那按钮就会大1个点，将向内缩进的宽度减少，能够让按钮的宽度变大，盖住容错点
-        let width = tabBar.bounds.width / count - 1  //先获取整个tabBar的宽度，再除以几个子控件，得出一个子控件的宽度
+        let width = tabBar.bounds.width / count  //先获取整个tabBar的宽度，再除以几个子控件，得出一个子控件的宽度
         //insetBy()正数向内缩进，负数向外扩展
         composeButton.frame = tabBar.bounds.insetBy(dx: 2 * width, dy: 0) //水平的往里面缩：因为+号按钮在中间，所以就是宽度*2
         //为composeButton按钮添加监听事件
@@ -135,5 +137,18 @@ extension WBMainViewController {
             //>2: 设置App的badgeNumber,从iOS8开始,需要用户授权之后才可以显示未读数
             UIApplication.shared.applicationIconBadgeNumber = unreadCount                                 
         }
+    }
+}
+
+extension WBMainViewController : UITabBarControllerDelegate{
+    
+    /// 将要选择TabBarItem
+    /// parameter tabBarController: tabBarController
+    /// parameter viewController:   目标控制器
+    /// return Bool:                是否切换到目标控制器
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        print("将要切换到\(viewController)")
+        //判断目标控制器是否是 UIViewController
+        return !viewController.isMember(of: UIViewController.self) //是否是哪个类但不包含子类
     }
 }
