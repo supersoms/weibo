@@ -128,9 +128,12 @@ extension WBMainViewController {
     
     //时钟触发方法
     @objc private func updateTimer(){
-        WBNetworkManager.shared.unreadCount { (unreadCount) in
-            //当获取到未读数之后，设置首页 tabBarItem 的 badgeNumber
+        WBNetworkManager.shared.unreadCount { (unreadCount) in                                  
+            //>1: 当获取到未读数之后，设置首页 tabBarItem 的 badgeNumber
             self.tabBar.items?[0].badgeValue = unreadCount > 0 ? "\(unreadCount)" : nil
+            
+            //>2: 设置App的badgeNumber,从iOS8开始,需要用户授权之后才可以显示未读数
+            UIApplication.shared.applicationIconBadgeNumber = unreadCount                                 
         }
     }
 }
