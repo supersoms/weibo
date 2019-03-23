@@ -4,7 +4,7 @@ import UIKit
 class WBBaseViewController: UIViewController{
 
     //根据用户登陆的状态来是否显示访客视图,false表示用户未登陆
-    var userLogon = true
+//    var userLogon = true
     
     //访客视图信息
     var visitorInfo: [String: String]?
@@ -27,7 +27,8 @@ class WBBaseViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        loadData()
+        //用户登陆之后，才加载数据，否则啥也不干
+        WBNetworkManager.shared.userLogon ? loadData() : ()
     }
     
     ///3: 重写 title 的didSet方法
@@ -54,7 +55,7 @@ extension WBBaseViewController{
         setupNavigationBar()
         
         //如果用户己登陆显示正常的视图，未登陆显示访客视图
-        userLogon ? setupTableView() : setupVisiorView()
+        WBNetworkManager.shared.userLogon ? setupTableView() : setupVisiorView()
     }
     
     //添加设置表格视图,只有用户登陆成功之后才会显示
@@ -104,7 +105,7 @@ extension WBBaseViewController{
         //5: 将item设置给bar
         navigationBar.items=[navItem]
         //设置整个 navBar 条子的背景颜色
-        if userLogon {
+        if WBNetworkManager.shared.userLogon {
              navigationBar.barTintColor = UIColor.cz_color(withHex: 0xffffff) //用户己登陆，设置整个导航条背景颜色为白色
         } else{
              navigationBar.barTintColor = UIColor.cz_color(withHex: 0xEDEDED) //用户己登陆，设置整个导航条背景颜色为灰色
@@ -156,7 +157,8 @@ extension WBBaseViewController: UITableViewDataSource,UITableViewDelegate {
 //访客视图监听方法
 extension WBBaseViewController {
     @objc private func login(){
-        print("用户登陆")
+        //发送通知
+        NotificationCenter.default.post(name: Notification.Name(WBUserShouldLoginNotification), object: nil)
     }
     @objc private func register(){
         print("用户注册")

@@ -13,9 +13,14 @@ class WBNetworkManager: AFHTTPSessionManager {
     static let shared = WBNetworkManager() //这样一个单例就写完了
     
     //访问令牌，所有微博网络请求，都基于此令牌(登陆除外)
-    var accessToken: String? = "2.00qXUXgH0UvlTR6f94cf5e470z8gAh"
+    var accessToken: String? //= "2.00qXUXgH0UvlTR6f94cf5e470z8gAh"
     //用户微博id,后面会讲到怎么取这个uid
     var uid : String? = ""
+    
+    //用户登陆标记[计算型属性]
+    var userLogon: Bool{
+        return accessToken != nil
+    }
     
     //专门拼接token的网络请求方法，建立tokenRequest()方法，单独处理token字典
     func tokenRequest(method: WBHTTPMethod = .GET, url: String, params: [String: Any], completion: @escaping (_ json:Any?, _ isSucess:Bool)->()){

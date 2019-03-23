@@ -13,11 +13,17 @@ class WBMainViewController: UITabBarController {
         setupTimer()
         //设置点击home首页按钮的代理
         delegate = self
+        //注册通知接收
+        NotificationCenter.default.addObserver(self, selector:#selector(userLogin), name: NSNotification.Name(rawValue: WBUserShouldLoginNotification), object: nil)
     }
     
-    //定时器一定要销毁,所以在析构函数中实现,由系统调用
     deinit {
+        //deinit相当Android中的Destroy()方法
+        //定时器一定要销毁,所以在析构函数中实现,由系统调用,
         timer?.invalidate()
+        
+        //注销通知
+        NotificationCenter.default.removeObserver(self)
     }
     
     /**
@@ -29,6 +35,13 @@ class WBMainViewController: UITabBarController {
     */    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
         return .portrait
+    }
+    
+    @objc private func userLogin(n: Notification){
+        print("用户登录通知: \(n)")
+        //展现登陆控制器 - 通常会和 UINavigationController 连用，方便返回
+        let vc = UINavigationController(rootViewController: WBOAuthViewController())
+        present(vc, animated: true, completion: nil)
     }
     
     //MARK: - 为撰写按钮添加监听方法
@@ -124,13 +137,17 @@ extension WBMainViewController{
 extension WBMainViewController {
     
     private func setupTimer(){
-        //> 1: 实例化Timer,每隔8秒会调用一下 updateTimer 这个方法
-        timer = Timer.scheduledTimer(timeInterval: 8.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        //> 1: 实例化Timer,每隔30秒会调用一下 updateTimer 这个方法
+        timer = Timer.scheduledTimer(timeInterval: 30.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
     //时钟触发方法
     @objc private func updateTimer(){
-        WBNetworkManager.shared.unreadCount { (unreadCount) in                                  
+        //如果没有登陆,直接返回
+        if !WBNetworkManager.shared.userLogon {
+            return
+        }
+        WBNetworkManager.shared.unreadCount { (unreadCount) in
             //>1: 当获取到未读数之后，设置首页 tabBarItem 的 badgeNumber
             self.tabBar.items?[0].badgeValue = unreadCount > 0 ? "\(unreadCount)" : nil
             
