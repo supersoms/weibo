@@ -17,6 +17,15 @@ class WBOAuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //1: 加载授权页面
+        let urlString = "https://api.weibo.com/oauth2/authorize?client_id=\(WBAppKey)&redirect_uri=\(WBRedirectURI)"
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        //2: 建立请求
+        let request = URLRequest(url: url)
+        //3: 加载请求
+        webView.loadRequest(request)
     }
     
     //MARK - 监听返回方法,关闭UI界面
