@@ -17,7 +17,9 @@ class WBHomeViewController: WBBaseViewController {
     
     //加载首页数据，重写父类的方法
     override func loadData() {
-        listViewModel.loadStatus { (isSuccess) in
+        listViewModel.loadStatus(pullup: self.isPullup) { (isSuccess) in
+            
+            print("加载数据结束 \(self.listViewModel.statusList.last?.text)")
             //刷新完成之后结束刷新
             self.refreshControl?.endRefreshing()
             self.isPullup = false

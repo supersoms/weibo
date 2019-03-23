@@ -10,9 +10,10 @@ extension WBNetworkManager {
     func statusList(since_id: Int64 = 0, max_id: Int64 = 0, completion: @escaping (_ list:[[String: Any]]?, _ isSuccess: Bool)->()){
         print("===开始加载数据===")
         let url = "https://api.weibo.com/2/statuses/home_timeline.json"
-        let params = ["since_id":since_id,"max_id":max_id] //此两个参数是下拉刷新微博时用到的参数
+        let params = ["since_id":since_id,"max_id":(max_id > 0 ? max_id - 1 : 0 )] //此两个参数是下拉刷新微博时用到的参数, 计算max_id，解决最后一条数据重复的bug
         
         WBNetworkManager.shared.tokenRequest(url: url, params: params) { (json, isSuccess) in
+            //服务器返回的数据就是以时间倒序排序的
             //从json中获取 statuses 字典数组,如果 as? 失败,那result == nil
 //            let result = json?["statuses"] as? [[String: Any]]
             let jsonString = json as? [String: Any]
