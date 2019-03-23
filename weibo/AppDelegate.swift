@@ -12,7 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 10.0, *) {
             //一定要导包 import UserNotifications,代码才能出来
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.carPlay,.sound]) { (success, error) in
-                print("授权 " + (success ? "成功" : "失败"))
+                print("用户授权" + (success ? "成功" : "失败"))
             }
         } else {
             //iOS 10.0 以下,以下方式取得用户授权显示通知[状态栏上方的提示条/声音/BadgeNumber]

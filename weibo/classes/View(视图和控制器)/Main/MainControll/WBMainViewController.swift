@@ -11,7 +11,7 @@ class WBMainViewController: UITabBarController {
         setupChildControllers()
         setupComposeButton()
         setupTimer()
-        //设置点击home按钮的代理
+        //设置点击home首页按钮的代理
         delegate = self
     }
     
@@ -140,6 +140,7 @@ extension WBMainViewController {
     }
 }
 
+//判断是否是home首页，如果是首页，点击首页按钮滚动到顶部并且刷新数据
 extension WBMainViewController : UITabBarControllerDelegate{
     
     /// 将要选择TabBarItem
@@ -148,6 +149,26 @@ extension WBMainViewController : UITabBarControllerDelegate{
     /// return Bool:                是否切换到目标控制器
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         print("将要切换到\(viewController)")
+        
+        //TODO 如果是HomeViewController首页，同时有未读数，点击滚动到顶部并且加载数据，点击切换到其它按钮就不管
+        //> 1: 获取控制器在数组中的索引
+        let index = (children as NSArray).index(of: viewController)
+        //> 2: 判断当前索引是首页，同时index也是首页，这就表示是重复点击首页的按钮
+        if selectedIndex == 0 && index == selectedIndex{
+            print("点击首页")
+            //> 3: 让表格滚动到顶部
+            //> 3.1 让表格滚动到顶部,需要先拿到控制器
+            let nav = children[0] as! UINavigationController
+            let vc = nav.children[0] as! WBHomeViewController
+            //> 3.2 让tableView 滚动到顶部,需要除掉状态栏的高度
+            vc.tableView?.setContentOffset(CGPoint(x: 0, y: -64), animated: true)
+            //> 4: 刷新数据
+            //如果从别的tabBar的按钮点击过来，再次点击首页按钮，如果不能滚动到顶部，那就用DispatchQueue.main.asyncAfter()处理
+//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
+//                vc.loadData()
+//            }
+            vc.loadData()
+        }
         //判断目标控制器是否是 UIViewController
         return !viewController.isMember(of: UIViewController.self) //是否是哪个类但不包含子类
     }
