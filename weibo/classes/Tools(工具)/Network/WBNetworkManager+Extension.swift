@@ -21,4 +21,21 @@ extension WBNetworkManager {
             completion(result , isSuccess)
         }
     }
+    
+    ///返回微博的未读数
+    func unreadCount(completion:@escaping (_ unreadCount: Int)->()){
+        guard let uid = uid else {
+            print("uid is nil")
+            return
+        }
+        let url = "https://rm.api.weibo.com/2/remind/unread_count.json"
+        let params = ["uid": uid]
+        WBNetworkManager.shared.tokenRequest(url: url, params: params) { (json, isSuccess) in
+            //> 1: 拿到字典
+            let dict = json as? [String: Any]
+            //> 2: 从json数据里面通过key: status 获取未读数据
+            let status = dict?["status"] as? Int //在没有用as?Int转为Int之前,status的类型是Any?,所以要转为Int类型
+            completion(status ?? 0)
+        }
+    }
 }

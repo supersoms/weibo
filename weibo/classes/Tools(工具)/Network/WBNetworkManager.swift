@@ -1,11 +1,3 @@
-//
-//  WBNetworkManager.swift
-//  weibo
-//
-//  Created by 麒麟 on 22/03/2019.
-//  Copyright © 2019 Learn. All rights reserved.
-//
-
 import UIKit
 import AFNetworking //导入就Pods目录里面框架文件夹的名字
 
@@ -22,6 +14,8 @@ class WBNetworkManager: AFHTTPSessionManager {
     
     //访问令牌，所有微博网络请求，都基于此令牌(登陆除外)
     var accessToken: String? = "2.00qXUXgH0UvlTR6f94cf5e470z8gAh"
+    //用户微博id,后面会讲到怎么取这个uid
+    var uid : String? = ""
     
     //专门拼接token的网络请求方法，建立tokenRequest()方法，单独处理token字典
     func tokenRequest(method: WBHTTPMethod = .GET, url: String, params: [String: Any], completion: @escaping (_ json:Any?, _ isSucess:Bool)->()){

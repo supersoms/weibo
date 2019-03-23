@@ -3,10 +3,19 @@ import UIKit
 /// 主控制器
 class WBMainViewController: UITabBarController {
 
+    //定时器，用于定时检查新微博的数量
+    private var timer: Timer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupChildControllers()
         setupComposeButton()
+        setupTimer()
+    }
+    
+    //定时器一定要销毁,所以在析构函数中实现,由系统调用
+    deinit {
+        timer?.invalidate()
     }
     
     /**
@@ -106,5 +115,22 @@ extension WBMainViewController{
         
         let nav = WBNavigationController(rootViewController:vc)
         return nav
+    }
+}
+
+//定时器的相关方法
+extension WBMainViewController {
+    
+    private func setupTimer(){
+        //> 1: 实例化Timer,每隔8秒会调用一下 updateTimer 这个方法
+        timer = Timer.scheduledTimer(timeInterval: 8.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    
+    //时钟触发方法
+    @objc private func updateTimer(){
+        WBNetworkManager.shared.unreadCount { (unreadCount) in
+            //当获取到未读数之后，设置首页 tabBarItem 的 badgeNumber
+            self.tabBar.items?[0].badgeValue = unreadCount > 0 ? "\(unreadCount)" : nil
+        }
     }
 }
