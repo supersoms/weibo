@@ -17,14 +17,20 @@ class WBHomeViewController: WBBaseViewController {
     
     //加载首页数据，重写父类的方法
     override func loadData() {
-        listViewModel.loadStatus(pullup: self.isPullup) { (isSuccess) in
+        
+        print("准备刷新，最后一条数据为: \(self.listViewModel.statusList.last?.text)")
+        
+        listViewModel.loadStatus(pullup: self.isPullup) { (isSuccess,shouldRefresh) in
             
-            print("加载数据结束 \(self.listViewModel.statusList.last?.text)")
+            print("加载数据结束")
+           
             //刷新完成之后结束刷新
             self.refreshControl?.endRefreshing()
             self.isPullup = false
-            //刷新表格
-            self.tableView?.reloadData()
+            //如果shouldRefresh为真表示还有数据，需要刷新表格
+            if shouldRefresh {
+                self.tableView?.reloadData()
+            }
         }
     }
 }

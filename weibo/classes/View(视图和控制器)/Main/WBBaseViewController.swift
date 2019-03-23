@@ -150,8 +150,6 @@ extension WBBaseViewController: UITableViewDataSource,UITableViewDelegate {
             //开始刷新
             loadData()
         }
-        
-        print("secion:\(secion)")
     }
 }
 

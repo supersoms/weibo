@@ -18,7 +18,6 @@ extension WBNetworkManager {
 //            let result = json?["statuses"] as? [[String: Any]]
             let jsonString = json as? [String: Any]
             let result = jsonString?["statuses"] as? [[String : Any]]
-            print("解析出来的result数据为: \(result)")
             completion(result , isSuccess)
         }
     }
