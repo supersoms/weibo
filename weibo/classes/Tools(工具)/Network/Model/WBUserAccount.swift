@@ -26,6 +26,12 @@ class WBUserAccount: NSObject {
     //过期日期
     @objc var expiresDate: Date?
     
+    //用户昵称 来源接口: 获取用户的个人信息接口show.json
+    @objc var screen_name: String?
+    
+    //用户头像地址（大图）180×180像素 来源接口: 获取用户的个人信息接口show.json
+    @objc var avatar_large: String?
+    
     override var description: String{
         return yy_modelDescription()
     }

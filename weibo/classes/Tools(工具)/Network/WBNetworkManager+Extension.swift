@@ -59,23 +59,45 @@ extension WBNetworkManager {
                       "code":code,
                       "redirect_uri":WBRedirectURI]
         request(method: .POST, url: url, params: params) { (json, isSuccess) in
-            //返回的数据格式为: 这是一个字典
-//            Optional({
-//            "access_token" = "2.00qXUXgH0UvlTRc360822b2dKNqxFB";
-//            "expires_in" = 157679999;
-//            isRealName = true;
-//            "remind_in" = 157679999;
-//            uid = 7041518178;
-//            })
-            print("获取accessToken返回的json:\(json)")
             
             //直接使用字典设置 userAccount 的属性, 空字典是 [:]
-            self.userAccount.yy_modelSet(with: json as? [String : Any] ?? [:]) //因json是Any?类型，所以要进行转换,
-            print("将字典转为模型(类)之后userAccount数据为:\(self.userAccount)")
-            //保存用户数据
-            self.userAccount.saveAccount()
+            self.userAccount.yy_modelSet(with: json as? [String : Any] ?? [:]) //因json是Any?类型，所以要进行转换
             
-            completion(isSuccess)
+            print("将字典转为模型(类)之后userAccount数据为:\(self.userAccount)")
+            
+            //当用登录成功之后，立即加载当前登录用户的信息
+            self.getUserInfo(completion: { (dict) in
+                
+                //将用户信息字典设置给用户账户信息（昵称,头像地址）
+                self.userAccount.yy_modelSet(with: dict)
+                
+                //保存用户数据
+                self.userAccount.saveAccount()
+                
+                print("用户和账户信息:\(self.userAccount)")
+                
+                //用户信息加载完成再回调
+                completion(isSuccess)
+            })
         }
     }
 }
+
+// MARK: - 获取用户的个人信息
+extension WBNetworkManager {
+
+    //回调返回的是字典
+    func getUserInfo(completion: (_ dict : [String : Any])->()) {
+        guard let uid = userAccount.uid else {
+            print("getUserInfo uid is nil")
+            return
+        }
+        
+        let url = "https://api.weibo.com/2/users/show.json"
+        let params = [ "uid" : uid]
+        tokenRequest(url: url, params: params) { (json, isSuccess) in
+            completion((json as? [String : Any]) ?? [:]) //将json转为字典，字典有可能为空，所以再加上 ?? 判断，如果为空，就是空字典
+        }
+    }
+}
+
