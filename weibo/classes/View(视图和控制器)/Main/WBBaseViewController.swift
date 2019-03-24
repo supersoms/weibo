@@ -78,6 +78,9 @@ extension WBBaseViewController{
         tableView?.contentInset = UIEdgeInsets(top: (navigationBar.bounds.height-20), left: 0, bottom: 0, right: 0)
         //如果底部会遮住这样设置：bottom: tabBarController?.tabBar.bounds.height ?? 49,
         
+        //当登录成功之后,tabView的滚动指示器是从状态栏开始的，需要修改指示器的缩进
+        tableView?.scrollIndicatorInsets = tableView!.contentInset
+        
         //设置刷新控件
         refreshControl = UIRefreshControl()      //初始化刷新控件
         tableView?.addSubview(refreshControl!)   //将刷新控件添加到tableView控件上,因将refreshControl添加到tableView是必选的，所以强解包
@@ -177,6 +180,11 @@ extension WBBaseViewController {
     //登录成功之后的处理逻辑
     @objc private func loginSuccess(n: Notification){
         print("用户登录成功的通知: \(n)")
+        
+        //清除左上角的注册与右上角的登录按钮
+        navItem.leftBarButtonItem = nil
+        navItem.rightBarButtonItem = nil
+        
         //登录成功之后更新UI界面,将访客视图替换为表格视图,需要重新设置UI
         //在访问 view 的 getter 时,如果view == nil时会调用loadView方法,而loadView方法执行完执行viewDidLoad方法
         view = nil
