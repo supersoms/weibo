@@ -70,6 +70,7 @@ extension WBNetworkManager {
             //直接使用字典设置 userAccount 的属性, 空字典是 [:]
             self.userAccount.yy_modelSet(with: json as? [String : Any] ?? [:]) //因json是Any?类型，所以要进行转换,
             print("将字典转为模型(类)之后userAccount数据为:\(self.userAccount)")
+            self.userAccount.saveAccount()
         }
     }
 }
