@@ -1,11 +1,3 @@
-//
-//  WBUserAccount.swift
-//  weibo
-//
-//  Created by 麒麟 on 24/03/2019.
-//  Copyright © 2019 Learn. All rights reserved.
-//
-
 import UIKit
 
 private let accountInfoFile : NSString = "useraccount.json"
@@ -40,18 +32,28 @@ class WBUserAccount: NSObject {
     
     override init() {
         super.init()
-        //从磁盘沙盒加载保存的用户信息
+        //1: 从磁盘沙盒加载保存的用户信息
         //加载磁盘文件到二进制数据，如果失败直接返回
         guard let path = accountInfoFile.cz_appendDocumentDir(),
             let data = NSData(contentsOfFile: path),
             let dict = try? JSONSerialization.jsonObject(with: data as Data, options: []) as? [String: Any] else{
                 return
         }
-        //使用字典给当前的模型的属性设置值
+        //2: 使用字典给当前的模型的属性设置值
         self.yy_modelSet(with: dict ?? [:])
+        //3: 判断token是否过期,取出对象的与当前的日期进行比较,如果有效期与当前日期降序比较，小
+        //expiresDate = Date(timeIntervalSinceNow: -3600 * 24) //减1天
+        if self.expiresDate?.compare(Date()) != .orderedDescending{
+            print("token己过期")
+            //token己过期，清空token
+            access_token = nil
+            uid = nil
+            //删除用户文件
+            _ = try? FileManager.default.removeItem(atPath: path)
+        }
     }
     
-    //将用户信息用json保存
+    //将用户信息用json保存到沙盒
     func saveAccount(){
         //1: 模型(类对象)转为字典,此时的self就是WBUserAccount
         var dict = (self.yy_modelToJSONObject() as? [String: Any]) ?? [:]
