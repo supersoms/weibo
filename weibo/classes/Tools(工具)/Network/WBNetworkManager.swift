@@ -10,23 +10,37 @@ enum WBHTTPMethod {
 //网络管理工具
 class WBNetworkManager: AFHTTPSessionManager {
     
-    static let shared = WBNetworkManager() //这样一个单例就写完了
+    //这样一个单例就写完了
+    static let shared = WBNetworkManager()
     
-    //访问令牌，所有微博网络请求，都基于此令牌(登陆除外)
-    var accessToken: String? //= "2.00qXUXgH0UvlTR6f94cf5e470z8gAh"
-    //用户微博id,后面会讲到怎么取这个uid
-    var uid : String? = ""
+    //为了解决AFN解析数据发生 failed: unacceptable content-type: text/plain 的问题，而进行如下的代码处理，在当前最新的AFN版本中没有出现些Bug
+//    static let shared : WBNetworkManager = {
+//        //实例化对象
+//        let instance = WBNetworkManager()
+//        //设置响应的反序列化支持的数据类型
+//        instance.responseSerializer.acceptableContentTypes?.insert("text/plain")
+//        //返回对象
+//        return instance
+//    }()
+    
+//    //访问令牌，所有微博网络请求，都基于此令牌(登陆除外)
+//    var accessToken: String? = "2.00qXUXgH0UvlTRc360822b2dKNqxFB"
+//    //用户微博id,后面会讲到怎么取这个uid
+//    var uid : String? = "7041518178"
+    
+    //懒加载用户账户对象
+    lazy var userAccount = WBUserAccount()
     
     //用户登陆标记[计算型属性]
     var userLogon: Bool{
-        return accessToken != nil
+        return userAccount.access_token != nil
     }
     
     //专门拼接token的网络请求方法，建立tokenRequest()方法，单独处理token字典
     func tokenRequest(method: WBHTTPMethod = .GET, url: String, params: [String: Any], completion: @escaping (_ json:Any?, _ isSucess:Bool)->()){
         //处理token字典
         //>0: 判断token是否为nil，如果为nil直接返回
-        guard let token = accessToken else {
+        guard let token = userAccount.access_token else {
              //FIXME: 发送通知,提示用户登录
             print("token is nil,需要登录")
             completion(nil,false)

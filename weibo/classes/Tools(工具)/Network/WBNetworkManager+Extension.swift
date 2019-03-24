@@ -24,7 +24,7 @@ extension WBNetworkManager {
     
     ///返回微博的未读数
     func unreadCount(completion:@escaping (_ unreadCount: Int)->()){
-        guard let uid = uid else {
+        guard let uid = userAccount.uid else {
             print("uid is nil")
             return
         }
@@ -36,6 +36,28 @@ extension WBNetworkManager {
             //> 2: 从json数据里面通过key: status 获取未读数据
             let status = dict?["status"] as? Int //在没有用as?Int转为Int之前,status的类型是Any?,所以要转为Int类型
             completion(status ?? 0)
+        }
+    }
+}
+
+// MARK: - 获取OAuth相关的方法
+extension WBNetworkManager {
+    
+    //获取accessToken
+    func getAccessToken(code:String){
+        let url = "https://api.weibo.com/oauth2/access_token"
+        //client_id: 申请应用时分配的AppKey
+        //client_secret: 申请应用时分配的AppSecret
+        //grant_type: 请求的类型，填写authorization_code
+        //code: 授权码
+        //redirect_uri: 重定向回调页面
+        let params = ["client_id":WBAppKey,
+                      "client_secret":WBAppSecret,
+                      "grant_type":"authorization_code",
+                      "code":code,
+                      "redirect_uri":WBRedirectURI]
+        request(method: .POST, url: url, params: params) { (json, isSuccess) in
+            print("获取accessToken返回的json:\(json)")
         }
     }
 }

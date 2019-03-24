@@ -1,4 +1,5 @@
 import UIKit
+import SVProgressHUD
 
 //通过 webView 加载新浪微博授权页面控制器
 class WBOAuthViewController: UIViewController {
@@ -9,6 +10,8 @@ class WBOAuthViewController: UIViewController {
         view = webView
         view.backgroundColor = UIColor.white
         
+        //取消webView的滚动,这样就拖拉不了webView了,新浪服务器返回的授权页面默认就是手机全屏
+        webView.scrollView.isScrollEnabled = false
         //设置代码, 用于监听webView加载页面的请求
         webView.delegate = self
         
@@ -34,6 +37,7 @@ class WBOAuthViewController: UIViewController {
     
     //MARK - 监听返回方法,关闭UI界面
     @objc private func back(){
+        SVProgressHUD.dismiss()
         //因为是 present 进来的，所以用dismiss
         dismiss(animated: true, completion: nil)
     }
@@ -47,10 +51,9 @@ class WBOAuthViewController: UIViewController {
         //让 webView 执行 js
         webView.stringByEvaluatingJavaScript(from: js)
     }
-    
-    //监听webView加载页面的请求
 }
 
+//监听webView加载页面的请求
 extension WBOAuthViewController : UIWebViewDelegate {
     
     //webView 将要加载页面的请求方法
@@ -75,6 +78,18 @@ extension WBOAuthViewController : UIWebViewDelegate {
         //> 3: 代码走到此处，url中一定有查询字符串并且包含code授权码，从query字符串中取出授权码
         let code = request.url?.query?.substring(from: "code=".endIndex) ?? ""
         print("授权码为: \(code)")
+        //> 4: 使用授权码获取AccessToken
+        WBNetworkManager.shared.getAccessToken(code: code)
         return false  //false为不加载http://www.baidu.com重定向回调页面
+    }
+    
+    //开始加载页面的请求时，显示进度条
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        SVProgressHUD.show()
+    }
+    
+    //加载完成后，关闭进度条
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        SVProgressHUD.dismiss()
     }
 }

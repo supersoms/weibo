@@ -137,12 +137,13 @@ extension WBMainViewController{
 extension WBMainViewController {
     
     private func setupTimer(){
-        //> 1: 实例化Timer,每隔30秒会调用一下 updateTimer 这个方法
-        timer = Timer.scheduledTimer(timeInterval: 30.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        //> 1: 实例化Timer,每隔60秒会调用一下 updateTimer 这个方法
+        timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
     //时钟触发方法
     @objc private func updateTimer(){
+        print("正在检测微博未读数")
         //如果没有登陆,直接返回
         if !WBNetworkManager.shared.userLogon {
             return
