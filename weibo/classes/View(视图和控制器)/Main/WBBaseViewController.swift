@@ -29,6 +29,14 @@ class WBBaseViewController: UIViewController{
         setupUI()
         //用户登陆之后，才加载数据，否则啥也不干
         WBNetworkManager.shared.userLogon ? loadData() : ()
+        
+        //注册接收 用户登录成功的通知
+        NotificationCenter.default.addObserver(self, selector:#selector(loginSuccess), name: NSNotification.Name(rawValue: WBUserLoginSuccessNotification), object: nil)
+    }
+    
+    deinit {
+        //注销用户登录成功的通知
+        NotificationCenter.default.removeObserver(self)
     }
     
     ///3: 重写 title 的didSet方法
@@ -156,11 +164,24 @@ extension WBBaseViewController: UITableViewDataSource,UITableViewDelegate {
 
 //访客视图监听方法
 extension WBBaseViewController {
+    
     @objc private func login(){
         //发送通知
         NotificationCenter.default.post(name: Notification.Name(WBUserShouldLoginNotification), object: nil)
     }
+    
     @objc private func register(){
         print("用户注册")
+    }
+    
+    //登录成功之后的处理逻辑
+    @objc private func loginSuccess(n: Notification){
+        print("用户登录成功的通知: \(n)")
+        //登录成功之后更新UI界面,将访客视图替换为表格视图,需要重新设置UI
+        //在访问 view 的 getter 时,如果view == nil时会调用loadView方法,而loadView方法执行完执行viewDidLoad方法
+        view = nil
+        
+        //因会重新执行viewDidLoad方法,所以需要注销用户登录成功的通知,不然会重复注册通知,那到时通知会发送多次,避免通知被重复注册
+        NotificationCenter.default.removeObserver(self)
     }
 }

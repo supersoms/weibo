@@ -84,6 +84,10 @@ extension WBOAuthViewController : UIWebViewDelegate {
                 SVProgressHUD.showError(withStatus: "网络请求失败!")
             } else {
                 SVProgressHUD.showSuccess(withStatus: "登陆成功!")
+                //> 1: 发送通知,让HomeViewController界面重新加载数据
+                NotificationCenter.default.post(name: Notification.Name(WBUserLoginSuccessNotification), object: nil)
+                //> 2: 关闭窗口
+                self.back()
             }
         }
         return false  //false为不加载http://www.baidu.com重定向回调页面

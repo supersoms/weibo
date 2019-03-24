@@ -1,7 +1,8 @@
 import Foundation
 
 // MARK - 专门用来存放定义全局通知
-let WBUserShouldLoginNotification = "WBUserShouldLoginNotification" // 用户需要登录的通知名字
+let WBUserShouldLoginNotification = "WBUserShouldLoginNotification"     // 用户需要登录的通知名字
+let WBUserLoginSuccessNotification = "WBUserLoginSuccessNotification"   // 用户登录成功的通知名字
 
 // MARK - 定义微博应用程序配置
 let WBAppKey = "258293456"                              //申请应用时分配的

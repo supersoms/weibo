@@ -13,7 +13,7 @@ class WBMainViewController: UITabBarController {
         setupTimer()
         //设置点击home首页按钮的代理
         delegate = self
-        //注册通知接收
+        //注册接收 用户需要登录的通知
         NotificationCenter.default.addObserver(self, selector:#selector(userLogin), name: NSNotification.Name(rawValue: WBUserShouldLoginNotification), object: nil)
     }
     
@@ -22,7 +22,7 @@ class WBMainViewController: UITabBarController {
         //定时器一定要销毁,所以在析构函数中实现,由系统调用,
         timer?.invalidate()
         
-        //注销通知
+        //注销用户需要登录的通知
         NotificationCenter.default.removeObserver(self)
     }
     
