@@ -87,7 +87,7 @@ extension WBNetworkManager {
 extension WBNetworkManager {
 
     //回调返回的是字典
-    func getUserInfo(completion: (_ dict : [String : Any])->()) {
+    func getUserInfo(completion: @escaping (_ dict : [String : Any])->()) {
         guard let uid = userAccount.uid else {
             print("getUserInfo uid is nil")
             return

@@ -46,6 +46,21 @@ extension WBHomeViewController {
         
         //注册原型 cell
         tableView?.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        
+        setupNavTitle()
+    }
+    
+    //设置Home主页的导航栏的中间标题
+    private func setupNavTitle(){
+        let title = WBNetworkManager.shared.userAccount.screen_name
+        let button = WBTitleButton(title: title)
+        navItem.titleView = button
+        button.addTarget(self, action: #selector(clickTitleButton), for: .touchUpInside)
+    }
+    
+    @objc func clickTitleButton(btn: UIButton){
+        //设置选中状态
+        btn.isSelected = !btn.isSelected
     }
 }
 

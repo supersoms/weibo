@@ -45,7 +45,7 @@ class WBUserAccount: NSObject {
             let dict = try? JSONSerialization.jsonObject(with: data as Data, options: []) as? [String: Any] else{
                 return
         }
-        //2: 使用字典给当前的模型的属性设置值
+        //2: 使用字典给当前的模型的属性设置值,用户是否登陆的关键代码
         self.yy_modelSet(with: dict ?? [:])
         
         //3: token有效期的过期处理: 判断token是否过期,取出对象的有效期与当前的日期进行比较,如果有效期与当前日期降序比较，小
