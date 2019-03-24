@@ -57,7 +57,19 @@ extension WBNetworkManager {
                       "code":code,
                       "redirect_uri":WBRedirectURI]
         request(method: .POST, url: url, params: params) { (json, isSuccess) in
+            //返回的数据格式为: 这是一个字典
+//            Optional({
+//            "access_token" = "2.00qXUXgH0UvlTRc360822b2dKNqxFB";
+//            "expires_in" = 157679999;
+//            isRealName = true;
+//            "remind_in" = 157679999;
+//            uid = 7041518178;
+//            })
             print("获取accessToken返回的json:\(json)")
+            
+            //直接使用字典设置 userAccount 的属性, 空字典是 [:]
+            self.userAccount.yy_modelSet(with: json as? [String : Any] ?? [:]) //因json是Any?类型，所以要进行转换,
+            print("将字典转为模型(类)之后userAccount数据为:\(self.userAccount)")
         }
     }
 }

@@ -11,12 +11,15 @@ import UIKit
 //用户账户信息
 class WBUserAccount: NSObject {
     
+    //以下的属性必须跟接口返回的属性名一致，不然无法映射
     //访问令牌
     @objc var access_token: String? //= "2.00qXUXgH0UvlTRc360822b2dKNqxFB"
     //用户id
     @objc var uid: String?
     //过期时间，单位秒，开发者5年，使用者3天
     @objc var expires_in: TimeInterval = 0
+    //是否是真名
+    @objc var isRealName: String?
     
     override var description: String{
         return yy_modelDescription()
