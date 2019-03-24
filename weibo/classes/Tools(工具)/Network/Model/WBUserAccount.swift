@@ -41,7 +41,7 @@ class WBUserAccount: NSObject {
         }
         //2: 使用字典给当前的模型的属性设置值
         self.yy_modelSet(with: dict ?? [:])
-        //3: 判断token是否过期,取出对象的与当前的日期进行比较,如果有效期与当前日期降序比较，小
+        //3: token有效期的过期处理: 判断token是否过期,取出对象的有效期与当前的日期进行比较,如果有效期与当前日期降序比较，小
         //expiresDate = Date(timeIntervalSinceNow: -3600 * 24) //减1天
         if self.expiresDate?.compare(Date()) != .orderedDescending{
             print("token己过期")
