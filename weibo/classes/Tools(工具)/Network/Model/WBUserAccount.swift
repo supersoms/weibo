@@ -8,6 +8,8 @@
 
 import UIKit
 
+private let accountInfoFile : NSString = "useraccount.json"
+
 //用户账户信息
 class WBUserAccount: NSObject {
     
@@ -36,6 +38,19 @@ class WBUserAccount: NSObject {
         return yy_modelDescription()
     }
     
+    override init() {
+        super.init()
+        //从磁盘沙盒加载保存的用户信息
+        //加载磁盘文件到二进制数据，如果失败直接返回
+        guard let path = accountInfoFile.cz_appendDocumentDir(),
+            let data = NSData(contentsOfFile: path),
+            let dict = try? JSONSerialization.jsonObject(with: data as Data, options: []) as? [String: Any] else{
+                return
+        }
+        //使用字典给当前的模型的属性设置值
+        self.yy_modelSet(with: dict ?? [:])
+    }
+    
     //将用户信息用json保存
     func saveAccount(){
         //1: 模型(类对象)转为字典,此时的self就是WBUserAccount
@@ -45,7 +60,7 @@ class WBUserAccount: NSObject {
         
         //2: 字典序列化
         guard let data = try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted),
-              let filePath = ("useraccount.json" as NSString).cz_appendDocumentDir() else {
+              let filePath = accountInfoFile.cz_appendDocumentDir() else {
             return
         }
         
