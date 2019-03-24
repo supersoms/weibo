@@ -44,7 +44,9 @@ extension WBNetworkManager {
 extension WBNetworkManager {
     
     //获取accessToken
-    func getAccessToken(code:String){
+    /// - parameter code:       授权码
+    /// - parameter completion: 完成回调[是否成功]
+    func getAccessToken(code:String, completion: @escaping (_ isSuccess: Bool)->()){
         let url = "https://api.weibo.com/oauth2/access_token"
         //client_id: 申请应用时分配的AppKey
         //client_secret: 申请应用时分配的AppSecret
@@ -70,7 +72,10 @@ extension WBNetworkManager {
             //直接使用字典设置 userAccount 的属性, 空字典是 [:]
             self.userAccount.yy_modelSet(with: json as? [String : Any] ?? [:]) //因json是Any?类型，所以要进行转换,
             print("将字典转为模型(类)之后userAccount数据为:\(self.userAccount)")
+            //保存用户数据
             self.userAccount.saveAccount()
+            
+            completion(isSuccess)
         }
     }
 }

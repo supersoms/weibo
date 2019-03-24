@@ -79,7 +79,13 @@ extension WBOAuthViewController : UIWebViewDelegate {
         let code = request.url?.query?.substring(from: "code=".endIndex) ?? ""
         print("授权码为: \(code)")
         //> 4: 使用授权码获取AccessToken
-        WBNetworkManager.shared.getAccessToken(code: code)
+        WBNetworkManager.shared.getAccessToken(code: code) { (isSuccess) in
+            if !isSuccess {
+                SVProgressHUD.showError(withStatus: "网络请求失败!")
+            } else {
+                SVProgressHUD.showSuccess(withStatus: "登陆成功!")
+            }
+        }
         return false  //false为不加载http://www.baidu.com重定向回调页面
     }
     
