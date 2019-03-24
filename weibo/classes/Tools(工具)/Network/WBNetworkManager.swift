@@ -39,10 +39,11 @@ class WBNetworkManager: AFHTTPSessionManager {
     //专门拼接token的网络请求方法，建立tokenRequest()方法，单独处理token字典
     func tokenRequest(method: WBHTTPMethod = .GET, url: String, params: [String: Any], completion: @escaping (_ json:Any?, _ isSucess:Bool)->()){
         //处理token字典
-        //>0: 判断token是否为nil，如果为nil直接返回
+        //>0: 判断token是否为nil，如果为nil直接返回,程序执行过程中,一版token不会为nil
         guard let token = userAccount.access_token else {
-             //FIXME: 发送通知,提示用户登录
-            print("token is nil,需要登录")
+            //发送通知,提示用户登录
+            print("token 过期了,需要登录1")
+            NotificationCenter.default.post(name: Notification.Name(WBUserShouldLoginNotification), object: nil)
             completion(nil,false)
             return
         }
@@ -76,8 +77,9 @@ class WBNetworkManager: AFHTTPSessionManager {
             
             //针对token过期,服务器返回403的状态码处理
             if (task?.response as? HTTPURLResponse)?.statusCode == 403 {
-                print("token 过期了")
-                //FIXME: 发送通知(本方法不知道被谁调用,谁接收到通知就谁处理)
+                print("token 过期了,需要登录2")
+                //发送用户需要登录的通知
+                NotificationCenter.default.post(name: Notification.Name(WBUserShouldLoginNotification), object: "bad token")
             }
             
             print("网络请求错误: \(error)")

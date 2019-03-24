@@ -1,4 +1,5 @@
 import UIKit
+import SVProgressHUD
 
 /// 主控制器
 class WBMainViewController: UITabBarController {
@@ -39,9 +40,22 @@ class WBMainViewController: UITabBarController {
     
     @objc private func userLogin(n: Notification){
         print("用户登录通知: \(n)")
-        //展现登陆控制器 - 通常会和 UINavigationController 连用，方便返回
-        let vc = UINavigationController(rootViewController: WBOAuthViewController())
-        present(vc, animated: true, completion: nil)
+        //判断n.object是否有值，如果有值，提示用户重新登录
+        
+        var when = DispatchTime.now() //默认情况下不延时
+        if n.object != nil {
+            when = DispatchTime.now() + 2 //token过期,延时2秒再执行跳转到登录授权页面
+            SVProgressHUD.setDefaultMaskType(.gradient) //设置进度条的渐变效果
+            SVProgressHUD.showInfo(withStatus: "用户登录己经超时，需要重新登录!")
+        }
+        //当上面的dialog显示完成之后再过2秒跳转到授权登录页面
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            
+            SVProgressHUD.setDefaultMaskType(.clear) //恢复进度条的原始效果
+            //展现登陆控制器 - 通常会和 UINavigationController 连用，方便返回
+            let vc = UINavigationController(rootViewController: WBOAuthViewController())
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     //MARK: - 为撰写按钮添加监听方法
