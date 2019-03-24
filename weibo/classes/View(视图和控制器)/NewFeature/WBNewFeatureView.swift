@@ -1,6 +1,6 @@
 import UIKit
 
-//新特性视图
+//新特性视图,在版本更新时,进行新特性的显示
 class WBNewFeature: UIView {
 
     override init(frame: CGRect) {

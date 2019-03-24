@@ -12,6 +12,8 @@ class WBMainViewController: UITabBarController {
         setupChildControllers()
         setupComposeButton()
         setupTimer()
+        //设置新特性视图
+        setupNewFeatureViews()
         //设置点击home首页按钮的代理
         delegate = self
         //注册接收 用户需要登录的通知
@@ -203,5 +205,54 @@ extension WBMainViewController : UITabBarControllerDelegate{
         }
         //判断目标控制器是否是 UIViewController
         return !viewController.isMember(of: UIViewController.self) //是否是哪个类但不包含子类
+    }
+}
+
+//新特性试图处理
+extension WBMainViewController {
+    
+    //设置新特性视图
+    private func setupNewFeatureViews(){
+        //判断用户是否登录,如是没登录不显示新特性
+        if !WBNetworkManager.shared.userLogon {
+            print("用户没有登录")
+            return
+        }
+        
+        
+        //>1: 检查版本是否更新
+        
+        //>2: 如果更新,显示新特性,否则显示欢迎视图
+        let v = isNewVersion ? WBNewFeature() : WBWecomeView.wecomeView()
+        
+        //>3: 添加视图
+        view.addSubview(v)
+    }
+    
+    /**
+     版本号的科普
+        - 在AppStore每次升级应用程序，版本号都需要增加
+        - 版本号的组成: 由主版本号.次版本号.修订版本号
+        - 各版本号的用处:
+            -主版本号: 意味着大版本的修改,使用者也需要做大的适应
+            -次版本号: 意味着小版本的修改,是某些函数或方法的使用或者参数有变化
+            -修订版本号: 程序 / 框架内部bug的修改,不会对使用者造成任何影响
+    */
+    //使用计算型属性，计算型属性跟OC的只读方法一样，本身不会占用存储空间，它类似于一个函数
+    private var isNewVersion: Bool{
+        //>1: 取当前的版本号,当前的版本号保存在info.plist文件里
+        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        print("当前APP版本号: \(currentVersion)")
+        
+        //>2: 取保存在'Document'目录中的之前的版本号,最理想是保存在用户偏好
+        let path: String = ("version" as NSString).cz_appendDocumentDir()
+        let sandboxVersion = (try? String(contentsOfFile: path)) ?? ""
+        print("沙盒版本: \(sandboxVersion)")
+        
+        //>3: 将当前版本号保存在沙盒中,文件名就是version
+        _ = try? currentVersion.write(toFile: path, atomically: true, encoding: .utf8)
+        
+        //>4: 返回两个版本号是否一致
+        return false
     }
 }
