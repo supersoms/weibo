@@ -223,7 +223,7 @@ extension WBMainViewController {
         //>1: 检查版本是否更新
         
         //>2: 如果更新,显示新特性,否则显示欢迎视图
-        let v = isNewVersion ? WBNewFeature() : WBWecomeView.wecomeView()
+        let v = isNewVersion ? WBNewFeatureView.newFeatureView(): WBWecomeView.wecomeView()
         
         //>3: 添加视图
         view.addSubview(v)
@@ -253,6 +253,6 @@ extension WBMainViewController {
         _ = try? currentVersion.write(toFile: path, atomically: true, encoding: .utf8)
         
         //>4: 返回两个版本号是否一致
-        return false
+        return true
     }
 }
