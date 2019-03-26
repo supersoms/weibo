@@ -202,6 +202,10 @@ extension WBMainViewController : UITabBarControllerDelegate{
 //                vc.loadData()
 //            }
             vc.loadData()
+            
+            //> 5: 当点击首页滚动到顶部刷新完成后,清除 tabItem 和 APP 的badgeNumber
+            vc.tabBarItem.badgeValue = nil
+            UIApplication.shared.applicationIconBadgeNumber = 0
         }
         //判断目标控制器是否是 UIViewController
         return !viewController.isMember(of: UIViewController.self) //是否是哪个类但不包含子类
