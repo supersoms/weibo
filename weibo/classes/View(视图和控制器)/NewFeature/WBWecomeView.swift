@@ -66,7 +66,9 @@ class WBWecomeView: UIView {
         iconView.sd_setImage(with: url, placeholderImage: UIImage(named: "avatar_default_big"))
         
         //>3: 设置图片圆角
+        //>3.1 可以 po iconView debug 看一下iconView的大小
         iconView.layer.cornerRadius = iconView.bounds.width * 0.5
+        //iconView.layer.cornerRadius = 42.5
         iconView.layer.masksToBounds = true
     }
 }
