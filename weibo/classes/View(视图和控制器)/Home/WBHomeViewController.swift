@@ -49,6 +49,15 @@ extension WBHomeViewController {
         
         //使用自定义的 cell
         tableView?.register(UINib(nibName: "WBStatusNormalCell", bundle: nil), forCellReuseIdentifier: cellId)
+        
+        //设置行高
+        tableView?.rowHeight = UITableView.automaticDimension
+        //设置预估行高
+        tableView?.estimatedRowHeight = 300
+        
+        //取消微博正文内容底部的分割线
+        tableView?.separatorStyle = .none
+        
         setupNavTitle()
     }
     
@@ -76,9 +85,9 @@ extension WBHomeViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //1: 取cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! WBStatusCell
         //2: 设置cell，其实就相当于Android中的先取得Id,然后于给这个id控件设置相应的数据
-        cell.textLabel?.text = listViewModel.statusList[indexPath.row].text
+        cell.statusLabel?.text = listViewModel.statusList[indexPath.row].text
         //3: 返回cell
         return cell
     }
