@@ -39,13 +39,14 @@ class WBStatusListViewModel {
         WBNetworkManager.shared.statusList(since_id: since_id, max_id: max_id) { (list, isSuccess) in
             
             //1: 字典(map)转模型,有可能list为nil没数据，所以用??处理，然后通过 as? [WBStatus] 将array转为[WBStatus]
+            //字典转模型就是将json数据映射给类WBStatus.self对象,那WBStatus.self就有数据了
             guard let array = NSArray.yy_modelArray(with: WBStatus.self, json: list ?? []) as? [WBStatus] else {
                 completion(isSuccess,false)
                 print("array is nil")
                 return
             }
             
-            print("刷新了\(array.count)数据")
+            print("刷新了\(array.count)数据，数据为\(array)")
             
             //2: 拼接数据
             if pullup {
