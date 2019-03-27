@@ -80,5 +80,7 @@ extension WBNewFeatureView: UIScrollViewDelegate {
         
         //4: 当滚动到界面的半屏之后,隐藏pageControl
         pageControl.isHidden = (page == scrollView.subviews.count)
+        
+        //5: 细节优化注意: 需要在xib中将 pageControl 的 User Interaction Enabled 勾支掉
     }
 }

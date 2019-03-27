@@ -8,8 +8,11 @@ class WBNavigationController: UINavigationController {
         navigationBar.isHidden = true
     }
     
-    //重写push方法，以实现隐藏底部Tabbar5个按钮，所有的push动作都会调用此方法
-    //viewController 是被push的控制器，设置它的左侧按钮作为返回按钮
+    /// 重写push方法，以实现隐藏底部Tabbar5个按钮，所有的push动作都会调用此方法
+    ///
+    /// - Parameters:
+    ///   - viewController: 是被push的控制器，设置它的左侧按钮作为返回按钮
+    ///   - animated:
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         //如果不是栈底控制器才需要隐藏
         if children.count > 0{
@@ -34,5 +37,4 @@ class WBNavigationController: UINavigationController {
     @objc private func back(){
         popViewController(animated: true)
     }
-    
 }

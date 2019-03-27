@@ -2,9 +2,6 @@ import UIKit
 
 /// 基类控制器
 class WBBaseViewController: UIViewController{
-
-    //根据用户登陆的状态来是否显示访客视图,false表示用户未登陆
-//    var userLogon = true
     
     //访客视图信息
     var visitorInfo: [String: String]?
@@ -55,7 +52,6 @@ class WBBaseViewController: UIViewController{
 ///MARK - 设置界面
 extension WBBaseViewController{
     @objc private func setupUI(){
-        //view.backgroundColor = UIColor.cz_random()
         
         view.backgroundColor = UIColor.white
         //取消自动缩进，如果隐藏了导航栏会缩进20个点
@@ -169,7 +165,7 @@ extension WBBaseViewController: UITableViewDataSource,UITableViewDelegate {
 extension WBBaseViewController {
     
     @objc private func login(){
-        //发送通知
+        //发送用户需要登录的通知
         NotificationCenter.default.post(name: Notification.Name(WBUserShouldLoginNotification), object: nil)
     }
     
@@ -177,7 +173,9 @@ extension WBBaseViewController {
         print("用户注册")
     }
     
-    //登录成功之后的处理逻辑
+    /// 登录成功之后的处理逻辑
+    ///
+    /// - Parameter n: 通知对象
     @objc private func loginSuccess(n: Notification){
         print("用户登录成功的通知: \(n)")
         

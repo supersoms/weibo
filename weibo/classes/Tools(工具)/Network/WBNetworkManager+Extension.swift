@@ -86,7 +86,9 @@ extension WBNetworkManager {
 // MARK: - 获取用户的个人信息
 extension WBNetworkManager {
 
-    //回调返回的是字典
+    /// 回调返回的是字典
+    ///
+    /// - Parameter completion: 闭包回调，类型是字典
     func getUserInfo(completion: @escaping (_ dict : [String : Any])->()) {
         guard let uid = userAccount.uid else {
             print("getUserInfo uid is nil")

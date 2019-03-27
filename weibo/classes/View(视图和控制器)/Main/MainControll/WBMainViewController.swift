@@ -118,9 +118,10 @@ extension WBMainViewController{
         viewControllers = arrayM //Tabbar才有这个属性
     }
     
-    // 使用字典创建一个子控制器
-    // param dict: map
-    // return : 子控制器
+    /// 使用字典创建一个子控制器
+    ///
+    /// - Parameter dict: dict
+    /// - Returns: 子控制器
     private func controller(dict:[String: Any]) -> UIViewController {
         //1: 获取字典内容
         guard let clsName = dict["clsName"] as? String, let title = dict["title"] as? String, let imageName = dict["imageName"] as? String,
@@ -256,6 +257,6 @@ extension WBMainViewController {
         _ = try? currentVersion.write(toFile: path, atomically: true, encoding: .utf8)
         
         //>4: 返回两个版本号是否一致
-        return true
+        return currentVersion == sandboxVersion
     }
 }

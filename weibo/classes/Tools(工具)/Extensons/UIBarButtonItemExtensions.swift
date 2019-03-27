@@ -2,8 +2,14 @@ import UIKit
 
 extension UIBarButtonItem{
     
-    ///抽取便利构造函数, 创建UIBarButtonItem, 必须自定义Button, 用于设置'好友'|'下一个'等按钮按下时文字的高亮颜色效果
-    /// - parameter isBack: 是否是返回按钮，如果是加上剪头
+    /// 抽取便利构造函数, 创建UIBarButtonItem, 必须自定义Button, 用于设置'好友'|'下一个'等按钮按下时文字的高亮颜色效果
+    ///
+    /// - Parameters:
+    ///   - title: 标题
+    ///   - fontSize: 字体大小
+    ///   - target:
+    ///   - actionMethod: 监听事件的方法
+    ///   - isBack: 是否是返回按钮，如果是加上剪头图标
     convenience init(title: String, fontSize: CGFloat = 16, target: Any?, actionMethod: Selector, isBack: Bool = false) {
         //swift 调用 OC 返回 instancetype 的方法，判断不出是否可选，所以btn必须指定类型为UIButton
         let btn: UIButton = UIButton.cz_textButton(title, fontSize: fontSize, normalColor: UIColor.darkGray, highlightedColor: UIColor.orange)

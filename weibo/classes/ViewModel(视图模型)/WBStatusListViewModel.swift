@@ -18,8 +18,11 @@ class WBStatusListViewModel {
     //上拉刷新错误次数
     private var pullupErrorTimes = 0
     
-    // - parameter pullup: 是否上拉刷新标记pullup，true表示上拉刷新
-    // - parameter completion: 完成回调[网络请求是否成功, 是否刷新表格] 当微博数据通过模型转换为数组之后，需要返回给调用者，那此时就要用到闭包
+    /// <#Description#>
+    ///
+    /// - Parameters:
+    ///   - pullup: 是否上拉刷新标记pullup，true表示上拉刷新
+    ///   - completion: 完成回调[网络请求是否成功, 是否刷新表格] 当微博数据通过模型转换为数组之后，需要返回给调用者，那此时就要用到闭包
     func loadStatus(pullup: Bool, completion: @escaping (_ success: Bool, _ shouldRefresh: Bool)->()){
         
         //判断是否是上拉刷新，同时检查刷新错误
