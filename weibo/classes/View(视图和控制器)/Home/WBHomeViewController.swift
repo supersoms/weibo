@@ -18,7 +18,7 @@ class WBHomeViewController: WBBaseViewController {
     //加载首页数据，重写父类的方法
     override func loadData() {
         
-        print("准备刷新，最后一条数据为: \(self.listViewModel.statusList.last?.text)")
+//        print("准备刷新，最后一条数据为: \(self.listViewModel.statusList.last?.text)")
         
         listViewModel.loadStatus(pullup: self.isPullup) { (isSuccess,shouldRefresh) in
             
@@ -87,7 +87,8 @@ extension WBHomeViewController {
         //1: 取cell
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! WBStatusCell
         //2: 设置cell，其实就相当于Android中的先取得Id,然后于给这个id控件设置相应的数据
-        cell.statusLabel?.text = listViewModel.statusList[indexPath.row].text
+        let vm = listViewModel.statusList[indexPath.row]
+        cell.viewModel = vm
         //3: 返回cell
         return cell
     }
