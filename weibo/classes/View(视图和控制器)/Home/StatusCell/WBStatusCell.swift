@@ -10,6 +10,7 @@ class WBStatusCell: UITableViewCell {
             self.memberIconView.image = viewModel?.memberIcon           //设置会员图标
             self.vipIconView.image = viewModel?.vipIcon                 //认证图标
             self.iconView.cz_setImage(urlString: viewModel?.status.user?.profile_image_url, placeholderImage: UIImage(named: "avatar_default_big"), isAvater: true)                  //设置头像
+            self.toolBar.viewModel = viewModel                          //将当前这个viewModel传给toolBar的viewModel
         }
     }
     
@@ -21,14 +22,13 @@ class WBStatusCell: UITableViewCell {
     @IBOutlet weak var sourceLabel: UILabel!            //来源
     @IBOutlet weak var vipIconView: UIImageView!        //认证图标
     @IBOutlet weak var statusLabel: UILabel!            //微博正文
+    @IBOutlet weak var toolBar: WBStatusToolBar!        //底部工具栏
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
     }
 }

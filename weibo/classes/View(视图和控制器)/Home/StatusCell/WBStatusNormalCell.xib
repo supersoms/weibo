@@ -62,7 +62,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="geg-dC-spg" userLabel="底部工具栏">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="geg-dC-spg" userLabel="底部工具栏" customClass="WBStatusToolBar" customModule="weibo" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="246.5" width="530" height="28"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zUL-zt-zGB">
@@ -107,6 +107,11 @@
                             <constraint firstItem="7vu-DZ-GWp" firstAttribute="leading" secondItem="zUL-zt-zGB" secondAttribute="trailing" id="qy1-5K-yp7"/>
                             <constraint firstItem="zUL-zt-zGB" firstAttribute="top" secondItem="geg-dC-spg" secondAttribute="top" id="vUJ-CJ-P0G"/>
                         </constraints>
+                        <connections>
+                            <outlet property="commentBtn" destination="7vu-DZ-GWp" id="vrb-vj-L4f"/>
+                            <outlet property="likeBtn" destination="Iug-bW-nqx" id="CT2-q6-Mxe"/>
+                            <outlet property="retweetedBtn" destination="zUL-zt-zGB" id="4wQ-DP-hVD"/>
+                        </connections>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="timeline_card_bottom_line" translatesAutoresizingMaskIntoConstraints="NO" id="4RJ-i4-eEH">
                         <rect key="frame" x="176.5" y="242.5" width="1" height="36"/>
@@ -157,6 +162,7 @@
                 <outlet property="sourceLabel" destination="u71-ai-ugS" id="ZFU-FL-QNG"/>
                 <outlet property="statusLabel" destination="Sm2-hS-3KU" id="SAT-dk-OuJ"/>
                 <outlet property="timeLabel" destination="8hd-DI-dTx" id="rTk-gq-t4N"/>
+                <outlet property="toolBar" destination="geg-dC-spg" id="0PT-jR-mwc"/>
                 <outlet property="vipIconView" destination="xRq-di-24c" id="0pS-us-VRq"/>
             </connections>
             <point key="canvasLocation" x="-256" y="110.19490254872565"/>
