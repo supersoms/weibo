@@ -19,7 +19,6 @@ class WBStatus: NSObject {
     }
     
     //类函数，告诉第三方框架YY_Model,如果遇到数组类型的属性,数组中存放的对象是什么类? 就是告诉框架要用什么类去映射
-
     /****
      ///FIXME - 踩坑
      在swift3.0版本前，使用YYModel实现嵌套的字典转模型时，如果返回数据中，包含数组，就需要实现 modelContainerPropertyGenericClass 方法，但不用加@objc可以解析
