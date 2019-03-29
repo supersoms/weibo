@@ -88,13 +88,17 @@ extension WBHomeViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        //1: 取cell
-        //FIXME: - 修改cellid
-        let cell = tableView.dequeueReusableCell(withIdentifier: originalCellId, for: indexPath) as! WBStatusCell
-        //2: 设置cell，其实就相当于Android中的先取得Id,然后于给这个id控件设置相应的数据
+        //1: 取出视图模型,根据视图模型判断可重用cell
         let vm = listViewModel.statusList[indexPath.row]
+        
+        //2: 取cell
+        let cellId = (vm.status.retweeted_status != nil) ? retweetedCellId : originalCellId
+        
+        //3: 设置cell，其实就相当于Android中的先取得Id,然后于给这个id控件设置相应的数据
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! WBStatusCell
         cell.viewModel = vm
-        //3: 返回cell
+        
+        //4: 返回cell
         return cell
     }
 }

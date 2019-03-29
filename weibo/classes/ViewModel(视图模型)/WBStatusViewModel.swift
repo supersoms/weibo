@@ -15,6 +15,15 @@ class WBStatusViewModel: CustomStringConvertible {
     @objc var commentStr: String?           //评论文字
     @objc var likeStr: String?              //赞文字
     @objc var pictureViewSize = CGSize()    //配图视图大小
+    @objc var picUrls: [WBStatusPicture]? { //如果是被转发的微博，原创微博一定没有图
+        //前面是返回被转发微博的配图
+        //后面返回的是原创微博的配图
+        //如果都没有,返回nil
+        return status.retweeted_status?.pic_urls ?? status.pic_urls
+    }
+    
+    @objc var retweetedText: String?        //被转发微博的文字
+    
     
     ///构造函数
     ///因为status定义时不是可选的，所以必须在init中初始化
@@ -43,8 +52,12 @@ class WBStatusViewModel: CustomStringConvertible {
         commentStr = countString(count: model.comments_count, defaultStr: "评论")
         likeStr = countString(count: model.attitudes_count, defaultStr: "赞")
         
-        //计算配图视图的大小
-        pictureViewSize = calcPictureViewSize(count: status.pic_urls?.count)
+        //计算配图视图的大小（有原创的就计算原创的,有转发的就计算转发的）
+        pictureViewSize = calcPictureViewSize(count: picUrls?.count)
+        
+        //设置被转发微博的文字
+//      retweetedText = "@" + (status.retweeted_status?.user?.screen_name ?? "") + ":" + (status.retweeted_status?.text ?? "")
+        retweetedText = "@" + (status.retweeted_status?.user?.screen_name ?? "") + ":\(status.retweeted_status?.text ?? "")"
     }
     
     //此description计算型属性的作用是: 返回 status 的具体描述信息，在debug时，可以看到模型的具体数据，如果不重写debug时查看不了

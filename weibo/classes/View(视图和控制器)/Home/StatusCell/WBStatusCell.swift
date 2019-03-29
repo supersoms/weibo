@@ -22,7 +22,9 @@ class WBStatusCell: UITableViewCell {
 //            } else {
 //                pictureView.urls = viewModel?.status.pic_urls
 //            }
-            pictureView.urls = viewModel?.status.pic_urls                               //设置配图视图的图片数据
+            //设置配图，不管是原创微博的配图还是被转发微博的配图
+            pictureView.urls = viewModel?.picUrls                               //设置配图视图的图片数据
+            retweetedLabel?.text = viewModel?.retweetedText                     //如果是原创微博是没有这个的,所以要设为可选,没有就不设置text
         }
     }
     
@@ -35,6 +37,7 @@ class WBStatusCell: UITableViewCell {
     @IBOutlet weak var statusLabel: UILabel!            //微博正文
     @IBOutlet weak var toolBar: WBStatusToolBar!        //底部工具栏
     @IBOutlet weak var pictureView: WBStatusPictureView!//配置视图
+    @IBOutlet weak var retweetedLabel: UILabel?         //被转发微博的标签,因原创微博没有这个控件,所以要设为可选的
     
     override func awakeFromNib() {
         super.awakeFromNib()
