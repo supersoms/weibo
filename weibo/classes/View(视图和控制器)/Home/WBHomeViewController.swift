@@ -1,6 +1,7 @@
 import UIKit
 
-private let cellId = "cellId" //表示只有此类全局可以访问
+private let originalCellId = "originalCellId"   //原创微博可重用cell id,表示只有此类全局可以访问
+private let retweetedCellId = "retweetedCellId" //被转发微博可重用cell id,表示只有此类全局可以访问
 
 /// 首页
 class WBHomeViewController: WBBaseViewController {
@@ -48,7 +49,9 @@ extension WBHomeViewController {
 //        tableView?.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         
         //使用自定义的 cell
-        tableView?.register(UINib(nibName: "WBStatusNormalCell", bundle: nil), forCellReuseIdentifier: cellId)
+        tableView?.register(UINib(nibName: "WBStatusNormalCell", bundle: nil), forCellReuseIdentifier: originalCellId)
+        
+        tableView?.register(UINib(nibName: "WBStatusRetweetedCell", bundle: nil), forCellReuseIdentifier: retweetedCellId)
         
         //设置行高
         tableView?.rowHeight = UITableView.automaticDimension
@@ -84,8 +87,10 @@ extension WBHomeViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         //1: 取cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! WBStatusCell
+        //FIXME: - 修改cellid
+        let cell = tableView.dequeueReusableCell(withIdentifier: originalCellId, for: indexPath) as! WBStatusCell
         //2: 设置cell，其实就相当于Android中的先取得Id,然后于给这个id控件设置相应的数据
         let vm = listViewModel.statusList[indexPath.row]
         cell.viewModel = vm
