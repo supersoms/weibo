@@ -50,6 +50,7 @@ class WBStatusListViewModel {
             
             //2.遍历返回的字典数组，字典转模型 -> 视图模型，将视图模型添加到数组
             for dict in list ?? [] {
+                
                 //2.1 创建微博模型
                 let status = WBStatus()
                 
@@ -71,7 +72,7 @@ class WBStatusListViewModel {
 //                return
 //            }
             
-            print("刷新了\(array.count)数据，数据为\(array)")
+//            print("刷新了\(array.count)数据，数据为\(array)")
             
             //2: 拼接数据
             if pullup {

@@ -119,12 +119,15 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="timeline_card_bottom_line" translatesAutoresizingMaskIntoConstraints="NO" id="031-xp-aft">
                         <rect key="frame" x="353.5" y="439.5" width="1" height="36"/>
                     </imageView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rRQ-6j-9Mi">
-                        <rect key="frame" x="11" y="94" width="511" height="341.5"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rRQ-6j-9Mi" userLabel="配图视图" customClass="WBStatusPictureView" customModule="weibo" customModuleProvider="target">
+                        <rect key="frame" x="11" y="94" width="511" height="200"/>
                         <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="341.5" id="LYk-tb-AXi"/>
+                            <constraint firstAttribute="height" constant="200" id="LYk-tb-AXi"/>
                         </constraints>
+                        <connections>
+                            <outlet property="heightCons" destination="LYk-tb-AXi" id="ZDj-ZV-Stk"/>
+                        </connections>
                     </view>
                 </subviews>
                 <constraints>
@@ -172,6 +175,7 @@
                 <outlet property="iconView" destination="oW1-rN-NVq" id="4J1-iF-jF0"/>
                 <outlet property="memberIconView" destination="74Q-Rn-JwH" id="KlR-og-C5W"/>
                 <outlet property="nameLabel" destination="AnX-KM-9wY" id="Z6H-Dv-o4e"/>
+                <outlet property="pictureView" destination="rRQ-6j-9Mi" id="au6-qa-42j"/>
                 <outlet property="sourceLabel" destination="u71-ai-ugS" id="ZFU-FL-QNG"/>
                 <outlet property="statusLabel" destination="Sm2-hS-3KU" id="SAT-dk-OuJ"/>
                 <outlet property="timeLabel" destination="8hd-DI-dTx" id="rTk-gq-t4N"/>
