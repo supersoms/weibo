@@ -72,7 +72,7 @@ class WBStatusListViewModel {
 //                return
 //            }
             
-//            print("刷新了\(array.count)数据，数据为\(array)")
+            print("刷新了\(array.count)数据，数据为\(array)")
             
             //2: 拼接数据
             if pullup {

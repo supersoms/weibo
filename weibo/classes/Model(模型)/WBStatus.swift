@@ -11,15 +11,21 @@ class WBStatus: NSObject {
     @objc var reposts_count: Int = 0        //转发数
     @objc var comments_count: Int = 0       //评论数
     @objc var attitudes_count: Int = 0      //赞数
-    @objc var pic_urls: [WBStatusPicture]?   //微博配图视图模型数组
+    @objc var pic_urls: [WBStatusPicture]?  //微博配图视图模型数组
     
     //模型必须重写 description 的计算型属性，在debug时，可以查看具体的信息
     override var description: String {
         return yy_modelDescription()
     }
     
-    ///类函数，告诉第三方框架YY_Model,如果遇到数组类型的属性,数组中存放的对象是什么类? 就是告诉框架要用什么类去映射
-    class func modelContainerPropertyGenericClass() -> [String: AnyClass]{
+    //类函数，告诉第三方框架YY_Model,如果遇到数组类型的属性,数组中存放的对象是什么类? 就是告诉框架要用什么类去映射
+
+    /****
+     ///FIXME - 踩坑
+     在swift3.0版本前，使用YYModel实现嵌套的字典转模型时，如果返回数据中，包含数组，就需要实现 modelContainerPropertyGenericClass 方法，但不用加@objc可以解析
+     在swift4.0版本以上包含4.0版本，如果不加@objc，解析数据失败
+    */
+    @objc class func modelContainerPropertyGenericClass() -> [String: WBStatusPicture.Type] {
         return ["pic_urls": WBStatusPicture.self]
     }
 }

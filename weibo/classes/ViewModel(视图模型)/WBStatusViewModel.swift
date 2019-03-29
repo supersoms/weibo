@@ -45,7 +45,6 @@ class WBStatusViewModel: CustomStringConvertible {
         
         //计算配图视图的大小
         pictureViewSize = calcPictureViewSize(count: status.pic_urls?.count)
-        
     }
     
     //此description计算型属性的作用是: 返回 status 的具体描述信息，在debug时，可以看到模型的具体数据，如果不重写debug时查看不了

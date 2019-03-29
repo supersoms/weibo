@@ -12,6 +12,17 @@ class WBStatusCell: UITableViewCell {
             iconView.cz_setImage(urlString: viewModel?.status.user?.profile_image_url, placeholderImage: UIImage(named: "avatar_default_big"), isAvater: true)                                  //设置头像
             toolBar.viewModel = viewModel                                               //将当前这个viewModel传给toolBar的viewModel
             pictureView.heightCons.constant = viewModel?.pictureViewSize.height ?? 0    //测试修改配图视图的高度
+            
+            //测试4张图片的场景
+//            if viewModel?.status.pic_urls?.count ?? 0 > 4{
+//                //修改数组,将末尾的数据全部删除
+//                var picUrls = viewModel!.status.pic_urls!
+//                picUrls.removeSubrange((picUrls.startIndex+4)..<picUrls.endIndex) //从开始加到4，一直删到末尾
+//                pictureView.urls = picUrls
+//            } else {
+//                pictureView.urls = viewModel?.status.pic_urls
+//            }
+            pictureView.urls = viewModel?.status.pic_urls                               //设置配图视图的图片数据
         }
     }
     
