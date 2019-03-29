@@ -13,6 +13,7 @@ class WBStatus: NSObject {
     @objc var comments_count: Int = 0       //评论数
     @objc var attitudes_count: Int = 0      //赞数
     @objc var pic_urls: [WBStatusPicture]?  //微博配图视图模型数组
+    @objc var retweeted_status: WBStatus?   //被转发的原创微博的数据
     
     //模型必须重写 description 的计算型属性，在debug时，可以查看具体的信息
     override var description: String {
