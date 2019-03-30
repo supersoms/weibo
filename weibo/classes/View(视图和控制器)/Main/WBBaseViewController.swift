@@ -10,7 +10,8 @@ class WBBaseViewController: UIViewController{
     var tableView: UITableView?
     
     //刷新控件
-    var refreshControl: UIRefreshControl?
+    //var refreshControl: UIRefreshControl?
+    var refreshControl: CZRefreshControll?
     
     //表示上拉刷新标记
     var isPullup = false
@@ -78,7 +79,9 @@ extension WBBaseViewController{
         tableView?.scrollIndicatorInsets = tableView!.contentInset
         
         //设置刷新控件
-        refreshControl = UIRefreshControl()      //初始化刷新控件
+        //refreshControl = UIRefreshControl()      //初始化刷新控件
+        refreshControl = CZRefreshControll()       //初始化自定义刷新控件
+        
         tableView?.addSubview(refreshControl!)   //将刷新控件添加到tableView控件上,因将refreshControl添加到tableView是必选的，所以强解包
         
         //为刷新控件refreshControl添加监听方法

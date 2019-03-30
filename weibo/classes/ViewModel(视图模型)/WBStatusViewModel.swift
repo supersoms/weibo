@@ -113,10 +113,29 @@ class WBStatusViewModel: CustomStringConvertible {
     }
     
     /// 使用单个图像,更新配图视图的大小
-    ///
+    /// FIXME: 新浪针对单张图片使用的都是缩略图，但是偶而会有一张特别大的图
     /// - Parameter image: 网络缓存的单张图片
-    func updateSingleImageSize(image: UIImage){
+    func updateSingleImageSize(image: UIImage) {
+        
         var size = image.size
+        
+        //图像过宽处理
+        let maxWidth: CGFloat = 300
+        let minWidth: CGFloat = 40
+        
+        if size.width > maxWidth {
+            //设置最大宽度
+            size.width = maxWidth
+            //如果图片宽度大于300，需要等比例调整高度
+            size.height = size.width * image.size.height / image.size.width
+        }
+        
+        //图像过窄处理
+        if size.width < minWidth {
+            size.width = minWidth
+            //要特殊处理高度，否则高度太大，会影响用户体验
+            size.height = size.width * image.size.height / image.size.width / 4
+        }
         
         //注意: 尺寸需要增加顶部的12个点,便于布局
         size.height += WBStatusPictureViewOutterMargin
