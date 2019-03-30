@@ -3,6 +3,18 @@ import UIKit
 /// 微博首页配图视图
 class WBStatusPictureView: UIView {
     
+    var viewModel: WBStatusViewModel?{
+        didSet{
+            calcViewSize()
+        }
+    }
+    
+    /// 根据视图模型的配图视图大小,调整显示内容的大小
+    private func calcViewSize(){
+        //修改配图视图的高度约束
+        heightCons.constant = viewModel?.pictureViewSize.height ?? 0
+    }
+    
     //配图视图的数组
     var urls: [WBStatusPicture]? {
         didSet{

@@ -11,7 +11,9 @@ class WBStatusCell: UITableViewCell {
             vipIconView.image = viewModel?.vipIcon                                      //认证图标
             iconView.cz_setImage(urlString: viewModel?.status.user?.profile_image_url, placeholderImage: UIImage(named: "avatar_default_big"), isAvater: true)                                  //设置头像
             toolBar.viewModel = viewModel                                               //将当前这个viewModel传给toolBar的viewModel
-            pictureView.heightCons.constant = viewModel?.pictureViewSize.height ?? 0    //测试修改配图视图的高度
+            
+            //配图视图视图模型
+            pictureView.viewModel = viewModel
             
             //测试4张图片的场景
 //            if viewModel?.status.pic_urls?.count ?? 0 > 4{
