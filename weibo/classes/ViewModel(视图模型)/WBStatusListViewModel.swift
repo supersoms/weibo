@@ -101,7 +101,7 @@ class WBStatusListViewModel {
     /// - Parameter list: 本次下载的视图模型数组
     private func cacheSingleImage(list: [WBStatusViewModel], finished: @escaping (_ success: Bool, _ shouldRefresh: Bool)->()) {
         
-        //TODO 使用调度组监听单张图片缓存实现
+        //TODO 为了监听单张图片缓存完成,使用调度组
         //创建调度组
         let group = DispatchGroup()
         
@@ -140,7 +140,7 @@ class WBStatusListViewModel {
                 
                 print("缓存的图像是: \(image), 长度是: \(length)")
                 
-                //出组，一定要放在回调的最后一句
+                //调度组出组，一定要放在回调的最后一句
                 group.leave()
             }
         }

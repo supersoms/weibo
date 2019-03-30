@@ -15,17 +15,6 @@ class WBStatusCell: UITableViewCell {
             //配图视图视图模型
             pictureView.viewModel = viewModel
             
-            //测试4张图片的场景
-//            if viewModel?.status.pic_urls?.count ?? 0 > 4{
-//                //修改数组,将末尾的数据全部删除
-//                var picUrls = viewModel!.status.pic_urls!
-//                picUrls.removeSubrange((picUrls.startIndex+4)..<picUrls.endIndex) //从开始加到4，一直删到末尾
-//                pictureView.urls = picUrls
-//            } else {
-//                pictureView.urls = viewModel?.status.pic_urls
-//            }
-            //设置配图，不管是原创微博的配图还是被转发微博的配图
-            pictureView.urls = viewModel?.picUrls                               //设置配图视图的图片数据
             retweetedLabel?.text = viewModel?.retweetedText                     //如果是原创微博是没有这个的,所以要设为可选,没有就不设置text
         }
     }

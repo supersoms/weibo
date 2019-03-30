@@ -6,6 +6,9 @@ class WBStatusPictureView: UIView {
     var viewModel: WBStatusViewModel?{
         didSet{
             calcViewSize()
+            
+            //设置配图，不管是原创微博的配图还是被转发微博的配图
+            urls = viewModel?.picUrls
         }
     }
     
@@ -28,7 +31,7 @@ class WBStatusPictureView: UIView {
     }
     
     //配图视图的数组
-    var urls: [WBStatusPicture]? {
+    private var urls: [WBStatusPicture]? {
         didSet{
             //1: 隐藏所有的imageView
             for v in subviews {
