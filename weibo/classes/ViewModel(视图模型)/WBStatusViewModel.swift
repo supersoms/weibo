@@ -23,7 +23,7 @@ class WBStatusViewModel: CustomStringConvertible {
     }
     
     @objc var retweetedText: String?        //被转发微博的文字
-    
+    @objc var rowHeight: CGFloat = 0        //行高
     
     ///构造函数
     ///因为status定义时不是可选的，所以必须在init中初始化
@@ -57,11 +57,59 @@ class WBStatusViewModel: CustomStringConvertible {
         
         //设置被转发微博的文字
         retweetedText = "@" + (status.retweeted_status?.user?.screen_name ?? "") + ":\(status.retweeted_status?.text ?? "")"
+        
+        updateRowHeight()
     }
     
     //此description计算型属性的作用是: 返回 status 的具体描述信息，在debug时，可以看到模型的具体数据，如果不重写debug时查看不了
     var description: String {
         return status.description
+    }
+    
+    //FIXME: 为什么要根据当前的视图模型内容计算行高,是为在用Instrument工具组中的 Core Animation 刷新频率的性能测试进提高tableView的性能
+    //结果: 经刷新频率测试,性能确实有提升,刷新频率都在50-60之间,如果没做行高缓存,没有这么高
+    ///根据当前的视图模型内容计算行高
+    func updateRowHeight(){
+        //原创微博: 顶部分割视图(12)+间距(12)+图像的高度(34)+间距(12)+正文高度(需要计算)+配图视图高度(计算)+间距(12)+底部视图高度(35)
+        //原创微博: 顶部分割视图(12)+间距(12)+图像的高度(34)+间距(12)+正文高度(需要计算)+间距(12)+间距(12)+转发文本高度(需要计算)+配图视图高度(计算)+间距(12)+底部视图高度(35)
+        
+        let margin: CGFloat = 12
+        let iconHeight: CGFloat = 34
+        let toolbarHeight: CGFloat = 35
+        var height:CGFloat = 0
+        let viewSize = CGSize(width: UIScreen.cz_screenWidth() - 2 * margin, height: CGFloat(MAXFLOAT))
+        let originalFont = UIFont.systemFont(ofSize: 15)
+        let retweetedFont = UIFont.systemFont(ofSize: 14)
+        
+        //1:计算顶部位置
+        height = 2 * margin + iconHeight + margin
+        
+        //2:计算正文的高度
+        if let text = status.text {
+            //参数1: 预期尺寸,宽度固定,高度尽量大
+            //参数2: 选项，换行文本，统一使用 usesLineFragmentOrigin
+            //参数3: 指定字体字典
+            height += (text as NSString).boundingRect(with: viewSize, options: [.usesLineFragmentOrigin], attributes: [NSAttributedString.Key.font: originalFont], context: nil).height
+        }
+        
+        //3: 判断是否转发微博
+        if status.retweeted_status != nil {
+            height += 2 * margin
+            //3.1 计算转发文本的高度
+            if let text = retweetedText {
+                height += (text as NSString).boundingRect(with: viewSize, options: [.usesLineFragmentOrigin], attributes: [NSAttributedString.Key.font: retweetedFont], context: nil).height
+            }
+        }
+        
+        //4: 配图视图
+        height += pictureViewSize.height
+        height += margin
+        
+        //5: 底部工具栏
+        height += toolbarHeight
+        
+        //6: 使用属性记录
+        rowHeight = height
     }
     
     /// 使用单个图像,更新配图视图的大小
@@ -72,7 +120,12 @@ class WBStatusViewModel: CustomStringConvertible {
         
         //注意: 尺寸需要增加顶部的12个点,便于布局
         size.height += WBStatusPictureViewOutterMargin
+        
+        //重新设置配图视图大小
         pictureViewSize = size
+        
+        //更新行高
+        updateRowHeight()
     }
     
     /// 计算指定数量的图片对应的配图视图的大小

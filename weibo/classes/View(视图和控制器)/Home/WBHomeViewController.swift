@@ -53,8 +53,8 @@ extension WBHomeViewController {
         
         tableView?.register(UINib(nibName: "WBStatusRetweetedCell", bundle: nil), forCellReuseIdentifier: retweetedCellId)
         
-        //设置行高
-        tableView?.rowHeight = UITableView.automaticDimension
+        //设置行高为自动行高,如果取消了,就得走代理方法 func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+//        tableView?.rowHeight = UITableView.automaticDimension
         //设置预估行高
         tableView?.estimatedRowHeight = 300
         
@@ -100,5 +100,14 @@ extension WBHomeViewController {
         
         //4: 返回cell
         return cell
+    }
+    
+    //默认情况下，没有override，在swift2.0中没有关系，但在swift3.0以上没有override表示父类没有此方法，此方法不会被调用, swift4.0 不用写也可以调用,
+    //调用了此方法，表示在别处计算了行高的逻辑 updateRowHeight()
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //1: 根据 indexPath 获取视图模型
+        let vm = listViewModel.statusList[indexPath.row]
+        //2: 返回计算好的行高
+        return vm.rowHeight
     }
 }
