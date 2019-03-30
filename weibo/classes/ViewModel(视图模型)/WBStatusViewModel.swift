@@ -1,6 +1,6 @@
 import Foundation
 
-///单条微博的视图模型
+///单条微博的视图模型,负责相应的逻辑处理
 /**
     如果一个类没有任何的父类，如果在开发中debug调试时，需要输出一个模型的具体调试信息，需要
     1: 继承 CustomStringConvertible
@@ -56,7 +56,6 @@ class WBStatusViewModel: CustomStringConvertible {
         pictureViewSize = calcPictureViewSize(count: picUrls?.count)
         
         //设置被转发微博的文字
-//      retweetedText = "@" + (status.retweeted_status?.user?.screen_name ?? "") + ":" + (status.retweeted_status?.text ?? "")
         retweetedText = "@" + (status.retweeted_status?.user?.screen_name ?? "") + ":\(status.retweeted_status?.text ?? "")"
     }
     
