@@ -28,20 +28,21 @@
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="85" id="sEc-iK-jqN"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="欢迎回来" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0lz-ay-PQO">
-                    <rect key="frame" x="152" y="526" width="70" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
+                <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="欢迎回来" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0lz-ay-PQO">
+                    <rect key="frame" x="155" y="522" width="65.5" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="1lQ-jq-2q3" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1Ru-tA-Sxo"/>
-                <constraint firstItem="0lz-ay-PQO" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="CXf-T5-5iv"/>
+                <constraint firstItem="0lz-ay-PQO" firstAttribute="top" secondItem="1lQ-jq-2q3" secondAttribute="bottom" constant="15" id="2CS-dI-LMZ"/>
                 <constraint firstItem="xQ1-5U-GbE" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="DcW-2a-BzU"/>
                 <constraint firstItem="xQ1-5U-GbE" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="SMx-M3-hWz"/>
                 <constraint firstItem="xQ1-5U-GbE" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Xqx-jh-sDq"/>
+                <constraint firstItem="0lz-ay-PQO" firstAttribute="centerX" secondItem="1lQ-jq-2q3" secondAttribute="centerX" id="Z2D-Zy-0dI"/>
                 <constraint firstItem="1lQ-jq-2q3" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="nZY-mc-RKL"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="1lQ-jq-2q3" secondAttribute="bottom" constant="160" id="pyc-bf-xco"/>
                 <constraint firstItem="1lQ-jq-2q3" firstAttribute="top" secondItem="xQ1-5U-GbE" secondAttribute="bottom" constant="-245" id="tTG-ba-Dsk"/>

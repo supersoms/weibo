@@ -133,6 +133,9 @@ class WBStatusListViewModel {
                 //将图像转换为二进制数据
                 if let image = image,  let data = image.pngData() {
                     length += data.count
+                    
+                    //图片缓存成功,更新配图视图的大小
+                    vm.updateSingleImageSize(image: image)
                 }
                 
                 print("缓存的图像是: \(image), 长度是: \(length)")

@@ -39,7 +39,7 @@ class WBWecomeView: UIView {
             self.layoutIfNeeded()
         }) { (isCompletion) in
             //当上面的动画执行完成之后
-            UIView.animate(withDuration: 1.0, animations: {
+            UIView.animate(withDuration: 2.0, animations: {
                 self.tipLabel.alpha = 1
             }, completion: { (_) in
                 //TODO 此处当显示文字动画完成之后跳转到首页
