@@ -89,17 +89,17 @@ class WBStatusListViewModel {
                 self.pullupErrorTimes += 1
                 completion(true,false)
             } else {
-                self.cacheSingleImage(list: array)
+                self.cacheSingleImage(list: array,finished: completion)
                 //3: 调用闭包告诉调用者成功
-                completion(isSuccess,true)
+                //completion(isSuccess,true)
             }
         }
     }
     
     /// 缓存本次下载微博数据数组中的单张图片,多张图片不用缓存,直接用九宫格显示
-    ///
+    /// 应该缓存完单张图片之后，并且修改过配图的大小之后，再回调，才能够保存表格等比例显示单张图像
     /// - Parameter list: 本次下载的视图模型数组
-    private func cacheSingleImage(list: [WBStatusViewModel]) {
+    private func cacheSingleImage(list: [WBStatusViewModel], finished: @escaping (_ success: Bool, _ shouldRefresh: Bool)->()) {
         
         //TODO 使用调度组监听单张图片缓存实现
         //创建调度组
@@ -145,6 +145,8 @@ class WBStatusListViewModel {
         //监听调度组情况
         group.notify(queue: DispatchQueue.main) {
             print("图像缓存完成,长度为: \(length/1024) K")
+            //执行闭包回调
+            finished(true, true)
         }
     }
 }
