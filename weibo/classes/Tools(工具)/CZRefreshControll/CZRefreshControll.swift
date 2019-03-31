@@ -6,6 +6,9 @@ class CZRefreshControll: UIControl {
     //下拉刷新控件的父视，下拉刷新控件应该适用于 UITableView / UICollectionView
     private weak var scrollView: UIScrollView?
     
+    //懒加载创建刷新视图对象
+    private lazy var refreshView: CZRefreshView = CZRefreshView.refreshView()
+    
     init(){
         super.init(frame:CGRect())
         setupUI()
@@ -83,5 +86,20 @@ extension CZRefreshControll{
     
     private func setupUI(){
         backgroundColor = UIColor.orange
+        
+        // 设置超出边界不显示,让刷新控件默认不显示
+        clipsToBounds = true
+        
+        // 添加视图对象
+        addSubview(refreshView)
+        
+        //原生自动布局: 设置xib控件的自动布局,需要指定宽高约束,让下拉刷新控件居中
+        //提示: iOS程序员一定要会原生自动布局写法,因为如果自己开发框架,不能用任何的自动布局框架
+        refreshView.translatesAutoresizingMaskIntoConstraints = false
+        addConstraint(NSLayoutConstraint(item: refreshView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0))
+        addConstraint(NSLayoutConstraint(item: refreshView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0))
+        
+        addConstraint(NSLayoutConstraint(item: refreshView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: refreshView.bounds.width))
+        addConstraint(NSLayoutConstraint(item: refreshView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: refreshView.bounds.height))
     }
 }
