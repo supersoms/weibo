@@ -39,8 +39,21 @@ class CZRefreshControll: UIControl {
         scrollView?.addObserver(self, forKeyPath: "contentOffset", options: [], context: nil)
     }
     
+    //本视图从父视图上删除
+    //提示:所有的下拉刷新框架都是监听父视图的 contentOffset
+    override func removeFromSuperview() {
+        //删除KVO,不然程序会崩溃
+        superview?.removeObserver(self, forKeyPath: "contentOffset")
+        super.removeFromSuperview()
+    }
+    
     //所有KVO方法会统一调用此方法
     //在程序中,通常只监听某一个对象的某几个属性,如果属性太多,方法会很乱
+    //FIXME: 观察者模式,在不需要的时候,都需要释放,开发者模式在开发中主要有两种
+    /***
+     1:通知中心
+     2:KVO
+     **/
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         guard let sv = scrollView else {
