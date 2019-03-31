@@ -89,13 +89,21 @@ class CZRefreshControll: UIControl {
         
         //判断临界点，只需要判断一次
         if sv.isDragging { //用户的手正在拖拽下拉刷新控件
-            if height > CZRefreshOffset {
+            if height > CZRefreshOffset && (refreshView.refreshState == .Normal) { //如果超过临界点并且它的状态是普通的，设置为正在下拉状态
                 print("放手即可刷新")
-            } else{
-                print("再使劲点...")
+                refreshView.refreshState = .Pulling
+            } else if height <= CZRefreshOffset && (refreshView.refreshState == .Pulling) {
+                print("继续使劲...")
+                //如果高度小于临界点并且它的状态是下拉，回到普通状态
+                refreshView.refreshState = .Normal
             }
-        } else {//用户的手己放手
-            
+        } else {
+            //放手 - 判断是否超过临界点
+            if refreshView.refreshState == .Pulling {
+                print("我要准备开始刷新了")
+                // 刷新结束之后，将状态改为 .Normal 才能够继续响应刷新
+                refreshView.refreshState = .WillRefresh
+            }
         }
     }
     
