@@ -1,6 +1,6 @@
 import UIKit
 
-/// 自定义下拉刷新控件
+/// 自定义下拉刷新控件，专门负者刷新相关的逻辑处理
 class CZRefreshControll: UIControl {
 
     //下拉刷新控件的父视，下拉刷新控件应该适用于 UITableView / UICollectionView
@@ -42,7 +42,7 @@ class CZRefreshControll: UIControl {
     //本视图从父视图上删除
     //提示:所有的下拉刷新框架都是监听父视图的 contentOffset
     override func removeFromSuperview() {
-        //删除KVO,不然程序会崩溃
+        //删除KVO监听,不删除程序会崩溃
         superview?.removeObserver(self, forKeyPath: "contentOffset")
         super.removeFromSuperview()
     }
