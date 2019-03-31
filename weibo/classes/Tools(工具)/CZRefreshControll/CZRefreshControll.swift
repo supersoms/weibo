@@ -145,7 +145,7 @@ class CZRefreshControll: UIControl {
             return
         }
         
-        //判断状态，是否正在刷新，如果不是，直接返回
+        //判断状态，是否正在刷新，如果不是，直接返回，用于防止重复调整表格间距
         if refreshView.refreshState != .WillRefresh {
             return
         }
