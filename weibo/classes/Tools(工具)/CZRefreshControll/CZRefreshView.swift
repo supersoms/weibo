@@ -14,6 +14,8 @@ class CZRefreshView: UIView {
         didSet {
             switch refreshState {
             case .Normal:
+                tipIcon.isHidden = false
+                indicator.stopAnimating()
                 tipLabel.text = "继续使劲拉..."
                 UIView.animate(withDuration: 0.25) {
                    self.tipIcon.transform = CGAffineTransform.identity //恢复成初始状态

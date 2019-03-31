@@ -102,6 +102,10 @@ class CZRefreshControll: UIControl {
             if refreshView.refreshState == .Pulling {
                 print("我要准备开始刷新了")
                 beginRefreshing()
+                
+                //当数据刷新完成之后，发送刷新数据的事件，才能自动调用endRefreshing()方法以结束刷新，如果不发送此事件，endRefreshing()方法不会被调用
+                //不能在beginRefreshing()中进行调用,不然会重复发送刷新事件
+                sendActions(for: .valueChanged)
             }
         }
     }
@@ -133,7 +137,26 @@ class CZRefreshControll: UIControl {
     
     ///结束刷新
     func endRefreshing(){
+        print("结束刷新")
         
+        //因为 scrollView 是weak(弱引用)的，怕是nil，所以必须进行守护判断
+        guard let sv = scrollView else{
+            print("sv is nil")
+            return
+        }
+        
+        //判断状态，是否正在刷新，如果不是，直接返回
+        if refreshView.refreshState != .WillRefresh {
+            return
+        }
+        
+        //恢复刷新视图的状态
+        refreshView.refreshState = .Normal
+        
+        //恢复表格视图的contentInset
+        var inset = sv.contentInset
+        inset.top -= CZRefreshOffset
+        sv.contentInset = inset
     }
 }
 
