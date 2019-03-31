@@ -65,6 +65,13 @@ class WBMainViewController: UITabBarController {
     //@objc修饰符：允许此函数在运行时通过OC的消息机制被调用，即便此函数是私有了，但在运行时OC还是可以访问它
     @objc private func composeButtonStatus(){
         print("撰写微博")
+        //>1: 判断是否登陆
+        
+        //>2: 实例化视图
+        let v = WBComposeTypeView.composeTypeView()
+        
+        //>3: 显示视图
+        v.show()
     }
     
     ///MARK - 生成 + 号撰写按钮 私有控件
