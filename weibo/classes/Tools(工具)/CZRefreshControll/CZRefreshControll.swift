@@ -1,5 +1,18 @@
 import UIKit
 
+private let CZRefreshOffset: CGFloat = 60    //刷新状态切换的临界点
+
+/// 下拉刷新控件的3种刷新状态
+///
+/// - Normal: 普通状态: 什么都不做
+/// - Pulling: 超过临界点，如果放手，将要刷新
+/// - WillRefresh: 用户超过临界点，并且放手
+enum CZRefreshState {
+    case Normal
+    case Pulling
+    case WillRefresh
+}
+
 /// 自定义下拉刷新控件，专门负者刷新相关的逻辑处理
 class CZRefreshControll: UIControl {
 
@@ -67,8 +80,23 @@ class CZRefreshControll: UIControl {
         //初始高度就是0，-是取反,--得正
         let height = -(sv.contentInset.top + sv.contentOffset.y)
         
+        if height < 0 {
+            return
+        }
+        
         //可以根据高度设置刷新控件的frame
         self.frame = CGRect(x: 0, y: -height, width: sv.bounds.width, height: height)
+        
+        //判断临界点，只需要判断一次
+        if sv.isDragging { //用户的手正在拖拽下拉刷新控件
+            if height > CZRefreshOffset {
+                print("放手即可刷新")
+            } else{
+                print("再使劲点...")
+            }
+        } else {//用户的手己放手
+            
+        }
     }
     
     ///开始刷新
