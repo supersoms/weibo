@@ -121,7 +121,7 @@ class CZRefreshControll: UIControl {
 extension CZRefreshControll{
     
     private func setupUI(){
-        backgroundColor = UIColor.orange
+        backgroundColor = superview?.backgroundColor
         
         // 设置超出边界不显示,让刷新控件默认不显示
         clipsToBounds = true

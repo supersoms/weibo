@@ -3,7 +3,18 @@ import UIKit
 /// 刷新视图 - 负者刷新相关的UI显示和动画
 class CZRefreshView: UIView {
     
-    var refreshState: CZRefreshState = .Normal              //刷新状态
+    var refreshState: CZRefreshState = .Normal { //刷新状态
+        didSet {
+            switch refreshState {
+            case .Normal:
+                tipLabel.text = "继续使劲拉..."
+            case .Pulling:
+                tipLabel.text = "放手就刷新..."
+            case .WillRefresh:
+                tipLabel.text = "正在刷新..."
+            }
+        }
+    }
     
     @IBOutlet weak var indicator: UIActivityIndicatorView!  //圆圈进度条
     @IBOutlet weak var tipIcon: UIImageView!                //上下拉提示图标
