@@ -115,7 +115,20 @@ class CZRefreshControll: UIControl {
     
     ///开始刷新
     func beginRefreshing(){
+        print("开始刷新")
         
+        //判断父视图
+        guard let sv = scrollView else{
+            print("sv is nil")
+            return
+        }
+        //设置刷新视图的状态
+        refreshView.refreshState = .WillRefresh
+        
+        //调整表格的间距
+        var inset = sv.contentInset
+        inset.top += CZRefreshOffset
+        sv.contentInset = inset
     }
     
     ///结束刷新
