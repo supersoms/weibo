@@ -12,7 +12,7 @@ class CZRefreshControll: UIControl {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        //希望用户用xib开发
+        //希望用户用xib开发时,需要调用以下代码
         super.init(coder:aDecoder)
         setupUI()
     }
@@ -31,14 +31,16 @@ class CZRefreshControll: UIControl {
         }
         scrollView = sv
         
-        //KVO监听父视图的 contentOffset
+        //KVO监听父视图的 contentOffset,观察者模式
         /***
             参数1: 监听的对象
          **/
+        //以下这行代码的意思: scrollView 它要添加一个监听者,由谁来负者监听喃,由self来负者监听,监听 scrollView 的 contentOffset 的变化
         scrollView?.addObserver(self, forKeyPath: "contentOffset", options: [], context: nil)
     }
     
     //所有KVO方法会统一调用此方法
+    //在程序中,通常只监听某一个对象的某几个属性,如果属性太多,方法会很乱
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         guard let sv = scrollView else {

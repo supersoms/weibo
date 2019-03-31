@@ -19,7 +19,8 @@ class WBHomeViewController: WBBaseViewController {
     //加载首页数据，重写父类的方法
     override func loadData() {
         
-//        print("准备刷新，最后一条数据为: \(self.listViewModel.statusList.last?.text)")
+        //添加此方法,解决网络慢不好的情况下,白屏的问题
+        refreshControl?.beginRefreshing()
         
         listViewModel.loadStatus(pullup: self.isPullup) { (isSuccess,shouldRefresh) in
             

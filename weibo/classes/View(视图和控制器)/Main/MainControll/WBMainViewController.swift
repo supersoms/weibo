@@ -160,11 +160,11 @@ extension WBMainViewController {
     
     //时钟触发方法
     @objc private func updateTimer(){
-        print("正在检测微博未读数")
         //如果没有登陆,直接返回
         if !WBNetworkManager.shared.userLogon {
             return
         }
+        print("正在检测微博未读数")
         WBNetworkManager.shared.unreadCount { (unreadCount) in
             //>1: 当获取到未读数之后，设置首页 tabBarItem 的 badgeNumber
             self.tabBar.items?[0].badgeValue = unreadCount > 0 ? "\(unreadCount)" : nil
