@@ -26,6 +26,10 @@ class CZRefreshView: UIView {
                 }
             case .WillRefresh:
                 tipLabel.text = "正在刷新..."
+                //隐藏上下拉提示图标
+                tipIcon.isHidden = true
+                //显示圆圈进度条
+                indicator.startAnimating()
             }
         }
     }
