@@ -101,14 +101,7 @@ class CZRefreshControll: UIControl {
             //放手 - 判断是否超过临界点
             if refreshView.refreshState == .Pulling {
                 print("我要准备开始刷新了")
-                // 刷新结束之后，将状态改为 .Normal 才能够继续响应刷新
-                refreshView.refreshState = .WillRefresh
-                
-                //让整个刷新视图能够显示出来
-                //解决方法: 修改表格的contentInset
-                var inset = sv.contentInset
-                inset.top += CZRefreshOffset
-                sv.contentInset = inset
+                beginRefreshing()
             }
         }
     }
@@ -122,10 +115,17 @@ class CZRefreshControll: UIControl {
             print("sv is nil")
             return
         }
+        
+        //判断是否正在刷新,如果正在刷新，直接返回
+        if refreshView.refreshState == .WillRefresh{
+            return
+        }
+        
         //设置刷新视图的状态
         refreshView.refreshState = .WillRefresh
         
-        //调整表格的间距
+        //调整表格的间距,让整个刷新视图能够显示出来
+        //解决方法: 修改表格的contentInset
         var inset = sv.contentInset
         inset.top += CZRefreshOffset
         sv.contentInset = inset
