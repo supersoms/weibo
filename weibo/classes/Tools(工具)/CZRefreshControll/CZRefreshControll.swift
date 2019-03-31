@@ -103,6 +103,12 @@ class CZRefreshControll: UIControl {
                 print("我要准备开始刷新了")
                 // 刷新结束之后，将状态改为 .Normal 才能够继续响应刷新
                 refreshView.refreshState = .WillRefresh
+                
+                //让整个刷新视图能够显示出来
+                //解决方法: 修改表格的contentInset
+                var inset = sv.contentInset
+                inset.top += CZRefreshOffset
+                sv.contentInset = inset
             }
         }
     }
@@ -124,7 +130,7 @@ extension CZRefreshControll{
         backgroundColor = superview?.backgroundColor
         
         // 设置超出边界不显示,让刷新控件默认不显示
-        clipsToBounds = true
+        //clipsToBounds = true
         
         // 添加视图对象
         addSubview(refreshView)
