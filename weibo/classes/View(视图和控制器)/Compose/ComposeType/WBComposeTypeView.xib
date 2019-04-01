@@ -15,8 +15,86 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WBComposeTypeView" customModule="weibo" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HeM-ao-JQY">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pXE-Sx-evQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="compose_slogan" translatesAutoresizingMaskIntoConstraints="NO" id="Xfs-Iz-DOz">
+                                <rect key="frame" x="110.5" y="100" width="154" height="48"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Rj-De-Emi">
+                                <rect key="frame" x="0.0" y="603" width="375" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kT4-tz-79T" userLabel="closeBtn">
+                                        <rect key="frame" x="175" y="9.5" width="25" height="25"/>
+                                        <state key="normal" image="tabbar_compose_background_icon_close"/>
+                                        <connections>
+                                            <action selector="closeBtn" destination="iN0-l3-epB" eventType="touchUpInside" id="sH2-8m-zS7"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VdX-HS-QDC" userLabel="returnBtn">
+                                        <rect key="frame" x="175" y="9.5" width="25" height="25"/>
+                                        <state key="normal" image="tabbar_compose_background_icon_return"/>
+                                        <connections>
+                                            <action selector="clickReturn" destination="iN0-l3-epB" eventType="touchUpInside" id="Iky-ig-fqG"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="MzO-Td-Yft"/>
+                                    <constraint firstItem="kT4-tz-79T" firstAttribute="centerY" secondItem="9Rj-De-Emi" secondAttribute="centerY" id="ixD-VS-lez"/>
+                                    <constraint firstItem="VdX-HS-QDC" firstAttribute="centerX" secondItem="9Rj-De-Emi" secondAttribute="centerX" id="rFu-5h-a7N"/>
+                                    <constraint firstItem="VdX-HS-QDC" firstAttribute="centerY" secondItem="9Rj-De-Emi" secondAttribute="centerY" id="um5-fr-TDp"/>
+                                    <constraint firstItem="kT4-tz-79T" firstAttribute="centerX" secondItem="9Rj-De-Emi" secondAttribute="centerX" id="zhy-ly-b5y"/>
+                                </constraints>
+                            </view>
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qyX-eG-pwV">
+                                <rect key="frame" x="0.0" y="288" width="375" height="224"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="224" id="adu-em-bvc"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="9Rj-De-Emi" firstAttribute="top" secondItem="qyX-eG-pwV" secondAttribute="bottom" constant="56" id="4Gf-ep-UPU"/>
+                            <constraint firstItem="qyX-eG-pwV" firstAttribute="leading" secondItem="pXE-Sx-evQ" secondAttribute="leading" id="BIQ-m1-ErU"/>
+                            <constraint firstItem="Xfs-Iz-DOz" firstAttribute="centerX" secondItem="pXE-Sx-evQ" secondAttribute="centerX" id="Rz4-LY-P2b"/>
+                            <constraint firstItem="Xfs-Iz-DOz" firstAttribute="top" secondItem="pXE-Sx-evQ" secondAttribute="top" constant="100" id="Sq7-sc-Daa"/>
+                            <constraint firstItem="9Rj-De-Emi" firstAttribute="leading" secondItem="pXE-Sx-evQ" secondAttribute="leading" id="fWE-Ov-ApA"/>
+                            <constraint firstAttribute="trailing" secondItem="qyX-eG-pwV" secondAttribute="trailing" id="fi7-is-Rfb"/>
+                            <constraint firstItem="qyX-eG-pwV" firstAttribute="centerX" secondItem="pXE-Sx-evQ" secondAttribute="centerX" id="gcg-N1-OaY"/>
+                            <constraint firstAttribute="trailing" secondItem="9Rj-De-Emi" secondAttribute="trailing" id="mFM-bj-7v3"/>
+                            <constraint firstAttribute="bottom" secondItem="9Rj-De-Emi" secondAttribute="bottom" id="oLK-XN-IEn"/>
+                        </constraints>
+                    </view>
+                    <blurEffect style="extraLight"/>
+                </visualEffectView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="HeM-ao-JQY" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="8Hu-tn-ap0"/>
+                <constraint firstItem="HeM-ao-JQY" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="B1c-hD-UAf"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="HeM-ao-JQY" secondAttribute="trailing" id="JI0-5r-Ter"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="HeM-ao-JQY" secondAttribute="bottom" id="rjT-sm-iH9"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="closeBtnCenterXCons" destination="zhy-ly-b5y" id="HRz-Cx-nA5"/>
+                <outlet property="returnBtn" destination="VdX-HS-QDC" id="7BJ-1I-5QX"/>
+                <outlet property="returnBtnCenterXCons" destination="rFu-5h-a7N" id="kr8-B9-UiV"/>
+                <outlet property="scrollView" destination="qyX-eG-pwV" id="kgU-sO-5We"/>
+            </connections>
+            <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
         </view>
     </objects>
+    <resources>
+        <image name="compose_slogan" width="154" height="48"/>
+        <image name="tabbar_compose_background_icon_close" width="25" height="25"/>
+        <image name="tabbar_compose_background_icon_return" width="25" height="25"/>
+    </resources>
 </document>

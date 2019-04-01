@@ -70,8 +70,21 @@ class WBMainViewController: UITabBarController {
         //>2: 实例化视图
         let v = WBComposeTypeView.composeTypeView()
         
-        //>3: 显示视图
-        v.show()
+        //>3: 显示视图,注意闭包的循环引用: 如果不加 weak v,会造成循环引用
+        v.show { [weak v] (clsName) in
+            guard let clsName = clsName,
+                let cls = NSClassFromString(Bundle.main.namespac + "." + clsName) as? UIViewController.Type else {
+                v?.removeFromSuperview()
+                return
+            }
+            //跳转到撰写微博控制器,就是跳转到新的UI界面
+            let vc = cls.init()
+            let nav = UINavigationController(rootViewController: vc)
+            //model转场跳转
+            self.present(nav, animated: true, completion: {
+                v?.removeFromSuperview() //当动画完成之后，跳转到新的控制器过去之后，删除父视图
+            })
+        }
     }
     
     ///MARK - 生成 + 号撰写按钮 私有控件

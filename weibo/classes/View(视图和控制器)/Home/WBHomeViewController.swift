@@ -21,11 +21,11 @@ class WBHomeViewController: WBBaseViewController {
         
         //添加此方法,解决网络慢不好的情况下,白屏的问题
         refreshControl?.beginRefreshing()
-        
+
         listViewModel.loadStatus(pullup: self.isPullup) { (isSuccess,shouldRefresh) in
-            
+
             print("加载数据结束")
-           
+
             //刷新完成之后结束刷新
             self.refreshControl?.endRefreshing()
             self.isPullup = false
