@@ -87,6 +87,11 @@ class CZRefreshControll: UIControl {
         //可以根据高度设置刷新控件的frame
         self.frame = CGRect(x: 0, y: -height, width: sv.bounds.width, height: height)
         
+        //传递父视图高度,如果正在刷新中不传递
+        if refreshView.refreshState != .WillRefresh{
+            refreshView.parentViewHeight = height
+        }
+        
         //判断临界点，只需要判断一次
         if sv.isDragging { //用户的手正在拖拽下拉刷新控件
             if height > CZRefreshOffset && (refreshView.refreshState == .Normal) { //如果超过临界点并且它的状态是普通的，设置为正在下拉状态

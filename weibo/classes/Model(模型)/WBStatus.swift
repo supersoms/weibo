@@ -8,6 +8,12 @@ class WBStatus: NSObject {
     //以下所有的属性名称必须与json数据里面的key对应一致，不然无法映射
     @objc var id: Int64 = 0                 //基本数据类型要赋值默认值，微博ID
     @objc var text: String?                 //微博信息内容
+    @objc var created_at: String?           //微博创建时间字符串
+    @objc var source: String? {             //微博来源(发布微博使用的客户端)
+        didSet{
+            source = "来自于 " + (source?.cz_href()?.text ?? "") //重新计算source并且保存，这样做不用开辟新的内存空间
+        }
+    }
     @objc var user: WBUser?                 //微博用户，user是微博列表中的一个对象(object)，在iOS中就是一个map字典
     @objc var reposts_count: Int = 0        //转发数
     @objc var comments_count: Int = 0       //评论数

@@ -14,8 +14,11 @@ class WBStatusCell: UITableViewCell {
             
             //配图视图视图模型
             pictureView.viewModel = viewModel
-            
-            retweetedLabel?.text = viewModel?.retweetedText                     //如果是原创微博是没有这个的,所以要设为可选,没有就不设置text
+            //如果是原创微博是没有这个的,所以要设为可选,没有就不设置text
+            retweetedLabel?.text = viewModel?.retweetedText
+            //设置微博来源
+            //sourceLabel.text = viewModel?.sourceStr
+            sourceLabel.text = viewModel?.status.source
         }
     }
     
