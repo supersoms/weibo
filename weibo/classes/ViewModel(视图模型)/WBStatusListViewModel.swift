@@ -37,7 +37,12 @@ class WBStatusListViewModel {
         //上拉刷 max_id 如果不是上拉刷新，那max_id为0就是不用设的意思，否则就是上拉刷新，那就取出数组中最后一条微博的id,如果取出的最后一条微博的id为nil，那值就是0
         let max_id = !pullup ? 0 : (statusList.last?.status.id ?? 0)
         
-        WBNetworkManager.shared.statusList(since_id: since_id, max_id: max_id) { (list, isSuccess) in
+        //TODO 让数据访问层加载数据
+        WBStatusListDAL.loadStatus(since_id: since_id, max_id: max_id) { (list, isSuccess) in
+            
+        //}
+        
+        //WBNetworkManager.shared.statusList(since_id: since_id, max_id: max_id) { (list, isSuccess) in
             
             //0.先判断网络请求是否成功
             if !isSuccess {
